@@ -7,8 +7,7 @@ using UnityEngine.AI;
 namespace AI
 {
     public class Feed : Action
-    {        
-
+    {
         public override TaskStatus OnUpdate()
         {
             if (GameManager.unitService != null)//&& GameManager.objectService != null)
@@ -35,10 +34,13 @@ namespace AI
             switch (foodType)
             {
                 case FoodType.Food:
-                   // GameManager.unitService.SetHealth(GameManager.objectService.GetHealth());
+                    CanSeeObject.targetObject.Value.SetActive(false);
+                    // GameManager.unitService.SetHealth(GameManager.objectService.GetHealth());
                     GameManager.unitService.SetHungry(objInfo.GetHungry());
                     break;
                 case FoodType.Drink:
+                    CanSeeObject.targetObject.Value.SetActive(false);
+
                     GameManager.unitService.SetThirst(objInfo.GetThirst());
                     break;
             }

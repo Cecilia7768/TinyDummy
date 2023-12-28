@@ -16,6 +16,8 @@ namespace AI
             base.OnStart();
 
             agent = GetComponent<NavMeshAgent>();
+            agent.isStopped = false;
+
             if (GameManager.unitService != null && !isInitSet)
             {
                 timer = GameManager.unitService.GetPatrolTimer(); // 타이머 초기화

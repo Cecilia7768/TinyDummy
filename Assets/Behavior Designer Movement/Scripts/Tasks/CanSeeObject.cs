@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BehaviorDesigner.Runtime.Tasks.Movement
@@ -69,8 +70,11 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
 
         private int m_IgnoreRaycastLayer = LayerMask.NameToLayer("Ignore Raycast");
 
+        /// <summary>
+        /// Odin
+        /// </summary>
         public static SharedGameObject targetObject; // 공유 변수
-
+        
 
         // Returns success if an object was found otherwise failure
         public override TaskStatus OnUpdate()
@@ -113,6 +117,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
 
             if (m_ReturnedObject.Value == null && (m_DetectionMode.Value & DetectionMode.ObjectList) != 0) {
                 var minAngle = Mathf.Infinity;
+
                 for (int i = 0; i < m_TargetObjects.Value.Count; ++i) {
                     GameObject obj;
                     if ((obj = MovementUtility.WithinSight(transform, m_Offset.Value, m_FieldOfViewAngle.Value, m_ViewDistance.Value, m_TargetObjects.Value[i], m_TargetOffset.Value, m_UsePhysics2D, m_AngleOffset2D.Value, out var angle, m_IgnoreLayerMask, m_UseTargetBone.Value, m_TargetBone.Value, m_DrawDebugRay.Value)) != null) {
@@ -165,6 +170,13 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
                 }
             }
 
+            if (EnvironmentManager.createFoodList != null && !isSet)
+            {
+                m_TargetObjects.Value = EnvironmentManager.createFoodList;
+                    //new List<GameObject>(EnvironmentManager.createFoodList);
+                isSet = true;
+            }
+
             if (m_ReturnedObject.Value != null) {
                 // 공유 변수에 감지된 타겟 할당
                 targetObject = m_ReturnedObject;
@@ -174,6 +186,8 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
             // An object is not within sight so return failure
             return TaskStatus.Failure;
         }
+
+        bool isSet = false;
 
         // Reset the public variables
         public override void OnReset()
