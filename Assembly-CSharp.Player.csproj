@@ -167,6 +167,7 @@
     <Compile Include="Assets\Behavior Designer Movement\Scripts\Movement.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Animator\WaitForState.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\PlayerPrefs\GetInt.cs" />
+    <Compile Include="Assets\Scripts\AI\Conditional\IsHungry.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Rigidbody2D\SetGravityScale.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Rigidbody\GetFreezeRotation.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Timeline\Stop.cs" />
@@ -281,6 +282,7 @@
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\CharacterController\SetRadius.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Transform\GetUpVector.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Variables\SharedObject.cs" />
+    <Compile Include="Assets\Scripts\UI\StateSlider.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\AudioSource\SetPriority.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Actions\Reflection\SetFieldValue.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\CharacterController\HasColliderHit.cs" />
@@ -288,6 +290,7 @@
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\SharedVariables\CompareSharedTransform.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\AudioSource\Stop.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Rigidbody\SetAngularVelocity.cs" />
+    <Compile Include="Assets\Quirky Series Ultimate\_Scripts\QuirkySeriesDemo.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\LayerMask\SetLayer.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Conditionals\StackedConditional.cs" />
     <Compile Include="Assets\Scripts\Services\LifeCycle.cs" />
@@ -568,10 +571,11 @@
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Animator\GetStringToHash.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Input\GetMousePosition.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\AudioSource\SetScheduledEndTime.cs" />
-    <Compile Include="Assets\Scripts\AI\Get.cs" />
+    <Compile Include="Assets\Scripts\AI\GetDrink.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\NavMeshAgent\GetSpeed.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Behaviour\IsEnabled.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\SharedVariables\CompareSharedQuaternion.cs" />
+    <Compile Include="Assets\Quirky Series Ultimate\_Scripts\RotateOnScroll.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\BoxCollider\SetSize.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Vector3\GetRightVector.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\ParticleSystem\GetMaxParticles.cs" />
@@ -618,9 +622,15 @@
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Transform\LookAt.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Vector2\ClampMagnitude.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\NavMeshAgent\IsStopped.cs" />
+    <Compile Include="Assets\Scripts\AI\Conditional\IsThirst.cs" />
+    <Compile Include="Assets\Scripts\AI\GetFood.cs" />
+    <Compile Include="Assets\Scripts\Manager\UnitManager.cs" />
+    <Compile Include="Assets\Scripts\Definition\StaticDefinition.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Quirky Series Ultimate\_Shader\SoftSurface.shader" />
     <None Include="Assets\Behavior Designer\Runtime\BehaviorDesigner.Runtime.dll" />
+    <None Include="Assets\Quirky Series Ultimate\_Shader\ToonRamp.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

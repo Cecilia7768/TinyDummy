@@ -52,4 +52,5 @@ namespace Definition
         Food,
         Drink,
     }
+
 }

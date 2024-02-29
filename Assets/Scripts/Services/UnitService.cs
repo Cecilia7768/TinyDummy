@@ -8,12 +8,8 @@ namespace Definition
     {
         public UnitStatus unitStatus;
 
-        private void Start()
-        {
-            StartCoroutine(GameManager.GetUnitService(this.GetComponent<UnitService>()));
-        }
-
         #region Interface
+        
         public float GetHealth() => unitStatus.Health;
         public float GetHungry() => unitStatus.Hungry;
         public float GetThirst() => unitStatus.Thirst;
@@ -26,11 +22,11 @@ namespace Definition
 
         public void SetHealth(float health)
         {
-            unitStatus.Health += health; 
-            if(unitStatus.Health > unitStatus.MaxHealth)
-                unitStatus.Health = unitStatus.MaxHealth;
-            else if(unitStatus.Health < 0)
-                unitStatus.Health = 0;
+            this.unitStatus.Health += health; 
+            if(this.unitStatus.Health > unitStatus.MaxHealth)
+                this.unitStatus.Health = unitStatus.MaxHealth;
+            else if(this.unitStatus.Health < 0)
+                this.unitStatus.Health = 0;
         }
         public void SetHungry(float hungry)
         {

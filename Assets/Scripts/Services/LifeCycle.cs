@@ -12,10 +12,12 @@ public class LifeCycle : MonoBehaviour
     [SerializeField]
     private float getThirst; //초당 목말라지는 수치
 
-    //private UnitService unitService;
+    private IUnitService unitService;
 
     private void Start()
     {
+        getHungry = Random.Range(0.1f, 1f);
+        getThirst = Random.Range(0.5f, 1.2f);
         StartCoroutine(DecreaseStatus());
     }
 
@@ -25,17 +27,20 @@ public class LifeCycle : MonoBehaviour
     /// <returns></returns>
     IEnumerator DecreaseStatus()
     {
+        unitService = this.gameObject.GetComponent<IUnitService>();
+
+        while (unitService == null)
+            yield return null;
+
         while (true)
         {
-            if(GameManager.unitService != null)
+            yield return new WaitForSeconds(1f);
+            if (unitService != null)
             {
-                GameManager.unitService.SetHungry(-getHungry);
-                GameManager.unitService.SetThirst(-getThirst);
-                yield return new WaitForSeconds(1f);
-            }
+                unitService.SetHungry(-getHungry);
+                unitService.SetThirst(-getThirst);
+            }   
         }
     }
-
-
 
 }

@@ -1,21 +1,26 @@
-using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
-using Definition;
 using BehaviorDesigner.Runtime.Tasks.Movement;
-using UnityEngine.AI;
+using Definition;
+using UnityEngine;
 
 namespace AI
 {
     public class Feed : Action
     {
+        private IUnitService unitService;
+
+        public override void OnStart()
+        {
+            unitService = this.gameObject.GetComponent<IUnitService>();
+        }
         public override TaskStatus OnUpdate()
         {
-            if (GameManager.unitService != null)//&& GameManager.objectService != null)
-            {  
+            if (unitService != null)
+            {
                 if (CanSeeObject.targetObject != null)
                 {
                     var obj = CanSeeObject.targetObject.Value.GetComponent<ObjectService>();
-                    ActionByObjectType(obj);                   
+                    ActionByObjectType(obj);
                     CanSeeObject.targetObject = null;
                     return TaskStatus.Success;
                 }
@@ -35,13 +40,10 @@ namespace AI
             {
                 case FoodType.Food:
                     CanSeeObject.targetObject.Value.SetActive(false);
-                    // GameManager.unitService.SetHealth(GameManager.objectService.GetHealth());
-                    GameManager.unitService.SetHungry(objInfo.GetHungry());
+                    unitService.SetHungry(objInfo.GetHungry());
                     break;
                 case FoodType.Drink:
-                    CanSeeObject.targetObject.Value.SetActive(false);
-
-                    GameManager.unitService.SetThirst(objInfo.GetThirst());
+                    unitService.SetThirst(objInfo.GetThirst());
                     break;
             }
         }

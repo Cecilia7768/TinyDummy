@@ -2,10 +2,11 @@ using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime.Tasks.Movement;
 using UnityEngine.AI;
+using Definition;
 
 namespace AI
 {
-    public class Get : Action
+    public class GetFood : Action
     {
         private NavMeshAgent agent;
 
@@ -19,16 +20,19 @@ namespace AI
         {
             float distanceToTarget = Vector3.Distance(agent.transform.position, CanSeeObject.targetObject.Value.transform.position);
 
-            if (distanceToTarget <= 15f)
+             if (CanSeeObject.targetObject.Value.tag == Tags.FOOD)
             {
-                agent.isStopped = true;
-                return TaskStatus.Success;
+                if (distanceToTarget <= 10f)
+                {
+                    agent.isStopped = true;
+                    return TaskStatus.Success;
+                }
+                else if (CanSeeObject.targetObject.Value != null)
+                    agent.SetDestination(CanSeeObject.targetObject.Value.transform.position);
             }
-            else if (CanSeeObject.targetObject.Value != null)
-                agent.SetDestination(CanSeeObject.targetObject.Value.transform.position);
 
-            return TaskStatus.Running;
+            return TaskStatus.Failure;
         }
-        
+
     }
 }
