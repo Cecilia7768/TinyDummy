@@ -1,8 +1,8 @@
-using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime.Tasks.Movement;
-using UnityEngine.AI;
 using Definition;
+using UnityEngine;
+using UnityEngine.AI;
 
 namespace AI
 {
@@ -20,7 +20,7 @@ namespace AI
         {
             float distanceToTarget = Vector3.Distance(agent.transform.position, CanSeeObject.targetObject.Value.transform.position);
 
-             if (CanSeeObject.targetObject.Value.tag == Tags.FOOD)
+            if (CanSeeObject.targetObject.Value.tag == Tags.FOOD)
             {
                 if (distanceToTarget <= 10f)
                 {

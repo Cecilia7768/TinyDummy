@@ -9,10 +9,16 @@ namespace Definition
         public float health;
         public float hungry;
         public float thirst;
+        public float happiness;
+
+        public GenderType gender;
+
         [Space(10)]
         public float maxHealth;
         public float maxHungry;
         public float maxThirst;
+        public float maxHappiness;
+
         [Space(10)]
         [Header("AI")]
         public float patrolRadius; // ¼øÂû ¹Ý°æ
@@ -21,10 +27,14 @@ namespace Definition
         public float Health { get { return health; } set { health = value; } }
         public float Hungry { get { return hungry; } set { hungry = value; } }
         public float Thirst { get { return thirst; } set { thirst = value; } }
+        public float Happiness { get { return happiness; } set { happiness = value; } }
+       
+        public GenderType Gender { get { return gender; } set { gender = value; } }
                
         public float MaxHealth { get { return maxHealth; } set { maxHealth = value; } }
         public float MaxHungry { get { return maxHungry; } set { maxHungry = value; } }
         public float MaxThirst { get { return maxThirst; } set { maxThirst = value; } }
+        public float MaxHappiness { get { return maxHappiness; } set { maxHappiness = value; } }
 
 
         public float PatrolRadius { get { return patrolRadius; } set { patrolRadius = value; } }
@@ -53,4 +63,10 @@ namespace Definition
         Drink,
     }
 
+    public enum GenderType
+    {
+        None = -1,
+        Male,
+        Female,
+    }
 }

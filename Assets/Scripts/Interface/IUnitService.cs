@@ -1,3 +1,5 @@
+using UnityEngine.Analytics;
+
 namespace Definition
 {
     public interface IUnitService
@@ -5,6 +7,10 @@ namespace Definition
         public float GetHealth();
         public float GetHungry();
         public float GetThirst();       
+        public float GetHappiness();    
+
+        public GenderType GetGender();         
+
         public float GetMaxHealth();
         public float GetMaxHungry();
         public float GetMaxThirst();
@@ -15,6 +21,10 @@ namespace Definition
         public void SetHealth(float health);
         public void SetHungry(float hungry);
         public void SetThirst(float thirst);  
+        public void SetHappiness(float happiness);
+
+        public void SetGender(GenderType genderType);
+
         public void SetMaxHealth(float health);
         public void SetMaxHungry(float hungry);
         public void SetMaxThirst(float thirst);

@@ -170,10 +170,10 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
                 }
             }
 
-            if (EnvironmentManager.createFoodList != null && !isSet)
+            if (FoodGenerator.createFoodList != null && !isSet)
             {
-                m_TargetObjects.Value = EnvironmentManager.createFoodList;
-                    //new List<GameObject>(EnvironmentManager.createFoodList);
+                m_TargetObjects.Value = FoodGenerator.createFoodList;
+                //new List<GameObject>(EnvironmentManager.createFoodList);
                 isSet = true;
             }
 

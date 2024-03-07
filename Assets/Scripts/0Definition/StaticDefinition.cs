@@ -6,7 +6,9 @@ namespace Definition
 {
     public class JjackStandard
     {
-        public const int jjackMaxCount = 10;
+        public const int jjackMaxCount = 2;
+        public static int maleCount = 0;
+        public static int femaleCount = 0;
     }
 
     public class Tags
@@ -14,4 +16,4 @@ namespace Definition
         public const string DRINK = "Drink";
         public const string FOOD = "Food";
     }
-}
+} 

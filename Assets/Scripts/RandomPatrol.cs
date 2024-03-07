@@ -41,31 +41,33 @@ namespace AI
 
             if (timer >= unitService.GetPatrolTimer())
             {
-                Vector3 newPos = RandomNavSphere(transform.position, unitService.GetPatrolRadius(), -1);
-                agent.SetDestination(newPos);
-                timer = 0; // 타이머 재설정
-
-                return TaskStatus.Success;
+                Vector3 newPos;
+                if (TryGetRandomNavSphere(transform.position, unitService.GetPatrolRadius(), -1, out newPos))
+                {
+                    agent.SetDestination(newPos);
+                    timer = 0; // 타이머 재설정
+                    return TaskStatus.Success;
+                }
             }
 
             return TaskStatus.Running;
         }
-        
 
-        /// <summary>
-        /// 다음 이동할 위치
-        /// </summary>
-        private Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
+        private bool TryGetRandomNavSphere(Vector3 origin, float dist, int layermask, out Vector3 result)
         {
             Vector3 randDirection = Random.insideUnitSphere * dist;
-
             randDirection += origin;
 
             NavMeshHit navHit;
+            if (NavMesh.SamplePosition(randDirection, out navHit, dist, layermask))
+            {
+                result = navHit.position;
+                return true;
+            }
 
-            NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
-
-            return navHit.position;
+            result = Vector3.zero;
+            return false;
         }
+
     }
 }

@@ -20,9 +20,12 @@ namespace AI
                 if (CanSeeObject.targetObject != null)
                 {
                     var obj = CanSeeObject.targetObject.Value.GetComponent<ObjectService>();
-                    ActionByObjectType(obj);
-                    CanSeeObject.targetObject = null;
-                    return TaskStatus.Success;
+                    if (obj != null)
+                    {
+                        ActionByObjectType(obj);
+                        CanSeeObject.targetObject = null;
+                        return TaskStatus.Success;
+                    }
                 }
                 return TaskStatus.Success;
             }
