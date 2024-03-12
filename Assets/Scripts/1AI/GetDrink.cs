@@ -28,7 +28,10 @@ namespace AI
                     return TaskStatus.Success;
                 }
                 else if (CanSeeObject.targetObject.Value != null)
+                {
                     agent.SetDestination(CanSeeObject.targetObject.Value.transform.position);
+                    return TaskStatus.Running;
+                }
             }
 
             return TaskStatus.Failure;

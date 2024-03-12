@@ -23,6 +23,11 @@ namespace Definition
         public void SetThirst(float thirst);  
         public void SetHappiness(float happiness);
 
+        /// <summary>
+        /// 행복도 초기화
+        /// </summary>
+        public void InitSetHappiness();
+
         public void SetGender(GenderType genderType);
 
         public void SetMaxHealth(float health);

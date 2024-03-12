@@ -4,21 +4,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using Definition;
 
-public class IsThirst : Conditional
+namespace AI
 {
-    private IUnitService unitService;
-
-    public override void OnStart()
+    public class IsThirst : Conditional
     {
-        unitService = this.gameObject.GetComponent<IUnitService>();
-    }
+        private IUnitService unitService;
 
-    /// <summary>
-    /// ¸ñ¸¶¸£¸é ÇÑÀÜ
-    /// </summary>
-    /// <returns></returns>
-    public override TaskStatus OnUpdate()
-    {
-        return unitService.GetThirst() < 80 ? TaskStatus.Success : TaskStatus.Failure;
+        public override void OnStart()
+        {
+            unitService = this.gameObject.GetComponent<IUnitService>();
+        }
+
+        /// <summary>
+        /// ¸ñ¸¶¸£¸é ÇÑÀÜ
+        /// </summary>
+        /// <returns></returns>
+        public override TaskStatus OnUpdate()
+        {
+            return unitService.GetThirst() < 80 ? TaskStatus.Success : TaskStatus.Failure;
+        }
     }
 }
