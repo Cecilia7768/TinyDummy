@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Definition;
-using Unity.VisualScripting;
-using UnityEditor;
+using System;
+using System.Collections;
+using UnityEngine;
 using UnityEngine.AI;
 
-public class LifeCycle : MonoBehaviour
+public class JjackCycle : LifeCycle
 {
     [SerializeField]
     [Header("초당 허기/갈증 변화 수치")]
@@ -17,22 +15,25 @@ public class LifeCycle : MonoBehaviour
     [SerializeField]
     private float getHappiness;
 
-    private IUnitService unitService;
-
     private NavMeshAgent agent;
 
+    private void OnEnable()
+    {
+        UnitService = this.GetComponent<IUnitService>();
+    }
     private void Start()
     {
-        getHungry = Random.Range(0.1f, 1f);
-        getThirst = Random.Range(0.5f, 1.2f);
-        StartCoroutine(DecreaseStatus());
-
         agent = GetComponent<NavMeshAgent>();
+
+        getHungry = UnityEngine.Random.Range(0.1f, 1f);
+        getThirst = UnityEngine.Random.Range(0.5f, 1.2f);
+        StartCoroutine(DecreaseStatus());
 
         StartCoroutine(SetHealthCondition());
         StartCoroutine(SetHappinessCondition());
         StartCoroutine(MakeBabyJJack());
     }
+
 
     /// <summary>
     /// 시간에 따른 허기짐, 갈증
@@ -40,19 +41,14 @@ public class LifeCycle : MonoBehaviour
     /// <returns></returns>
     IEnumerator DecreaseStatus()
     {
-        unitService = this.gameObject.GetComponent<IUnitService>();
-
-        while (unitService == null)
-            yield return null;
-
         while (true)
         {
             yield return new WaitForSeconds(1f);
-            if (unitService != null)
+            if (UnitService != null)
             {
-                unitService.SetHungry(-getHungry);
-                unitService.SetThirst(-getThirst);
-            }   
+                UnitService.SetHungry(-getHungry);
+                UnitService.SetThirst(-getThirst);
+            }
         }
     }
 
@@ -65,10 +61,10 @@ public class LifeCycle : MonoBehaviour
     {
         while (true)
         {
-            if (unitService.GetHungry() >= 80 && unitService.GetThirst() >= 80)
-                unitService.SetHealth(1);
-            else if (unitService.GetHungry() <= 0 || unitService.GetThirst() <= 0)
-                unitService.SetHealth(-1);
+            if (UnitService.GetHungry() >= 80 && UnitService.GetThirst() >= 80)
+                UnitService.SetHealth(1);
+            else if (UnitService.GetHungry() <= 0 || UnitService.GetThirst() <= 0)
+                UnitService.SetHealth(-1);
 
             yield return new WaitForSeconds(1f);
         }
@@ -82,9 +78,9 @@ public class LifeCycle : MonoBehaviour
     {
         while (true)
         {
-            if (unitService.GetHealth() >= 80)
+            if (UnitService.GetHealth() >= 80)
             {
-                unitService.SetHappiness(getHappiness);
+                UnitService.SetHappiness(getHappiness);
             }
 
             yield return new WaitForSeconds(2f);
@@ -101,7 +97,7 @@ public class LifeCycle : MonoBehaviour
         {
             yield return null;
 
-            if (unitService.GetHappiness() >= 100)
+            if (UnitService.GetHappiness() >= 100)
             {
                 agent.destination = EnvironmentManager.Instance.nestPosi.transform.position;
 
@@ -109,8 +105,6 @@ public class LifeCycle : MonoBehaviour
                 {
                     yield return null;
                 }
-
-                Debug.Log("도착했습니다!");
                 break;
             }
         }
@@ -130,5 +124,4 @@ public class LifeCycle : MonoBehaviour
         }
         return false;
     }
-
 }

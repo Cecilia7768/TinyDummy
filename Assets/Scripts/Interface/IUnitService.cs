@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine.Analytics;
 
 namespace Definition
@@ -9,8 +10,7 @@ namespace Definition
         public float GetThirst();       
         public float GetHappiness();    
 
-        public GenderType GetGender();         
-
+        public GenderType GetGender();
         public float GetMaxHealth();
         public float GetMaxHungry();
         public float GetMaxThirst();

@@ -14,28 +14,31 @@ namespace AI
         {
             base.OnStart();
             agent = GetComponent<NavMeshAgent>();
+            agent.isStopped = false;
         }
 
         public override TaskStatus OnUpdate()
         {
-            float distanceToTarget = Vector3.Distance(agent.transform.position, CanSeeObject.targetObject.Value.transform.position);
-
-            if (CanSeeObject.targetObject.Value.tag == Tags.FOOD)
+            if (CanSeeObject.targetObject.Value == null || CanSeeObject.targetObject.Value.tag != Tags.FOOD)
             {
-                if (distanceToTarget <= 10f)
-                {
-                    agent.isStopped = true;
-                    return TaskStatus.Success;
-                }
-                else if (CanSeeObject.targetObject.Value != null)
-                {
-                    agent.SetDestination(CanSeeObject.targetObject.Value.transform.position);
-                    return TaskStatus.Running;
-                }
+                return TaskStatus.Failure; 
             }
 
-            return TaskStatus.Failure;
+            float distanceToTarget = Vector3.Distance(agent.transform.position, CanSeeObject.targetObject.Value.transform.position);
+            if (distanceToTarget <= 10f)
+            {
+                agent.isStopped = true; 
+                return TaskStatus.Success;
+            }
+            else
+            {
+                if (agent.isStopped || !agent.hasPath)
+                {
+                    agent.isStopped = false;
+                    agent.SetDestination(CanSeeObject.targetObject.Value.transform.position); 
+                }
+                return TaskStatus.Running;
+            }
         }
-
     }
 }

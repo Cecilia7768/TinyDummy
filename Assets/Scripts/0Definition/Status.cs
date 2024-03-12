@@ -29,7 +29,7 @@ namespace Definition
         public float Thirst { get { return thirst; } set { thirst = value; } }
         public float Happiness { get { return happiness; } set { happiness = value; } }
        
-        public GenderType Gender { get { return gender; } set { gender = value; } }
+        public GenderType Gender { get { return gender; } set { gender = value; } }        
                
         public float MaxHealth { get { return maxHealth; } set { maxHealth = value; } }
         public float MaxHungry { get { return maxHungry; } set { maxHungry = value; } }
@@ -56,6 +56,13 @@ namespace Definition
         public FoodType FoodType { get { return foodType; } set { foodType = value; } }
     }
 
+    //[Serializable]
+    //public struct AgeStatus
+    //{
+    //    private AgeType age;
+    //    public AgeType AgeType { get { return age; } set { age = value; } }
+    //}
+
     public enum FoodType
     {
         None = -1,
@@ -68,5 +75,14 @@ namespace Definition
         None = -1,
         Male,
         Female,
+    }
+    public enum AgeType
+    {
+        None = -1,
+        Egg,
+        Adult,
+        Child,
+        Old,
+        Dead,
     }
 }

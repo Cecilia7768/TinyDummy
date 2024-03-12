@@ -18,6 +18,12 @@ namespace AI
 
         public override TaskStatus OnUpdate()
         {
+            if (!agent.pathPending && !agent.hasPath && agent.velocity.sqrMagnitude == 0f)
+            {
+                agent.isStopped = false;
+                agent.SetDestination(CanSeeObject.targetObject.Value.transform.position);
+            }
+
             float distanceToTarget = Vector3.Distance(agent.transform.position, CanSeeObject.targetObject.Value.transform.position);
 
             if (CanSeeObject.targetObject.Value.tag == Tags.DRINK)
@@ -27,7 +33,7 @@ namespace AI
                     agent.isStopped = true;
                     return TaskStatus.Success;
                 }
-                else if (CanSeeObject.targetObject.Value != null)
+                else
                 {
                     agent.SetDestination(CanSeeObject.targetObject.Value.transform.position);
                     return TaskStatus.Running;
@@ -36,6 +42,6 @@ namespace AI
 
             return TaskStatus.Failure;
         }
-        
+
     }
 }
