@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public class HatchCycle : LifeCycle
+public class HatchCycle : MonoBehaviour
 {
     [SerializeField]
     private Slider growBar;
@@ -11,16 +11,26 @@ public class HatchCycle : LifeCycle
     private const float growthTime = 2f; // 부화까지 걸리는 시간
     private float currGrowthTime = 0f; // 현재 성장 시간
 
-    private void OnEnable()
+    private ILifeCycleService iLifeCycleService;
+    private void Start()
     {
+        iLifeCycleService = this.transform.parent.GetComponent<ILifeCycleService>();
+
+        StartCoroutine(SetGrowBarValue());
         StartCoroutine(Hatching());
     }
 
-    private void Update()
+    IEnumerator SetGrowBarValue()
     {
-        if (CurrAge == AgeType.Egg)
+        while(iLifeCycleService == null) yield return null;
+        while(true)
         {
-            growBar.value = currGrowthTime / growthTime;
+            if (iLifeCycleService.GetCurrAge() == AgeType.Egg)
+            {
+                growBar.value = currGrowthTime / growthTime;
+            }
+
+            yield return null;
         }
     }
 
@@ -30,14 +40,16 @@ public class HatchCycle : LifeCycle
     /// <returns></returns>
     IEnumerator Hatching()
     {
+        while (iLifeCycleService == null) yield return null;
+
         while (currGrowthTime < growthTime)
         {
-            currGrowthTime += Time.deltaTime; 
-            yield return null; 
+            currGrowthTime += Time.deltaTime;
+            yield return null;
         }
         growBar.value = 1;
 
-        CurrAge = AgeType.Adult;
+        iLifeCycleService.SetCurrAge(AgeType.Child);
     }
 
 }

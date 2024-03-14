@@ -15,12 +15,15 @@ namespace Definition
         public float GetHungry() => unitStatus.Hungry;
         public float GetThirst() => unitStatus.Thirst;
         public float GetHappiness() => unitStatus.Happiness;
+        public float GetAgeFigure() => unitStatus.AgeFigure;
 
         public GenderType GetGender() => unitStatus.Gender;
 
         public float GetMaxHealth() => unitStatus.MaxHealth;
         public float GetMaxHungry() => unitStatus.MaxHungry;
         public float GetMaxThirst() => unitStatus.MaxThirst;
+        public float GetMaxAgeFigure() => unitStatus.MaxAgeFigure;
+
         public float GetPatrolRadius() => unitStatus.PatrolRadius;
         public float GetPatrolTimer() => unitStatus.PatrolTimer;
 
@@ -47,6 +50,12 @@ namespace Definition
             unitStatus.Happiness = Mathf.Clamp(unitStatus.Happiness, 0, unitStatus.MaxHappiness);
         }
 
+        public void SetAgeFigure(float setAge)
+        {
+            unitStatus.AgeFigure += setAge;
+            unitStatus.AgeFigure = Mathf.Clamp(unitStatus.AgeFigure, 0, unitStatus.MaxAgeFigure);
+        }
+
         public void InitSetHappiness()
         {
             unitStatus.Happiness = 50;
@@ -56,6 +65,9 @@ namespace Definition
         public void SetMaxHealth(float health) => unitStatus.MaxHealth = health;
         public void SetMaxHungry(float hungry) => unitStatus.MaxHungry = hungry;
         public void SetMaxThirst(float thirst) => unitStatus.MaxThirst = thirst;
+        public void SetMaxAgeFigure(float maxAgeFigure) => unitStatus.MaxAgeFigure = maxAgeFigure;
+
+
         public void SetPatrolRadius(float patrolRadius) => unitStatus.PatrolRadius = patrolRadius;
         public void SetPatrolTimer(float patrolTimer) => unitStatus.PatrolTimer = patrolTimer;
 

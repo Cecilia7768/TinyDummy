@@ -13,7 +13,7 @@ namespace AI
         public override void OnStart()
         {
             base.OnStart();
-            unitService = this.gameObject.GetComponent<IUnitService>();
+            unitService = this.transform.parent.GetComponent<IUnitService>();
             agent = GetComponent<NavMeshAgent>();
             agent.isStopped = false; 
         }

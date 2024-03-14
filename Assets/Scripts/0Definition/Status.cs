@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Definition
@@ -10,6 +11,7 @@ namespace Definition
         public float hungry;
         public float thirst;
         public float happiness;
+        public float ageFigure; //나이 진행도
 
         public GenderType gender;
 
@@ -18,6 +20,7 @@ namespace Definition
         public float maxHungry;
         public float maxThirst;
         public float maxHappiness;
+        public float maxAgeFigure;
 
         [Space(10)]
         [Header("AI")]
@@ -28,6 +31,7 @@ namespace Definition
         public float Hungry { get { return hungry; } set { hungry = value; } }
         public float Thirst { get { return thirst; } set { thirst = value; } }
         public float Happiness { get { return happiness; } set { happiness = value; } }
+        public float AgeFigure { get { return ageFigure; } set { ageFigure = value; } }
        
         public GenderType Gender { get { return gender; } set { gender = value; } }        
                
@@ -35,6 +39,7 @@ namespace Definition
         public float MaxHungry { get { return maxHungry; } set { maxHungry = value; } }
         public float MaxThirst { get { return maxThirst; } set { maxThirst = value; } }
         public float MaxHappiness { get { return maxHappiness; } set { maxHappiness = value; } }
+        public float MaxAgeFigure { get { return maxAgeFigure; } set { maxAgeFigure = value; } }
 
 
         public float PatrolRadius { get { return patrolRadius; } set { patrolRadius = value; } }
@@ -56,12 +61,20 @@ namespace Definition
         public FoodType FoodType { get { return foodType; } set { foodType = value; } }
     }
 
-    //[Serializable]
-    //public struct AgeStatus
-    //{
-    //    private AgeType age;
-    //    public AgeType AgeType { get { return age; } set { age = value; } }
-    //}
+    [Serializable]
+    public class LifeCycleStatus
+    {
+        public IUnitService unitService;
+        public AgeType currAge;
+
+        [Space(5)]
+        [Header("성장 상태")]
+        public List<GameObject> statePrefabList = new List<GameObject>();
+
+        public IUnitService UnitService { get { return unitService; } set { unitService = value; } }
+        public AgeType CurrAge { get { return currAge; } set { currAge = value; } }
+        public List<GameObject> StatePrefabList { get { return statePrefabList; } set { statePrefabList = value; } }
+    }
 
     public enum FoodType
     {
@@ -80,8 +93,8 @@ namespace Definition
     {
         None = -1,
         Egg,
-        Adult,
         Child,
+        Adult,
         Old,
         Dead,
     }

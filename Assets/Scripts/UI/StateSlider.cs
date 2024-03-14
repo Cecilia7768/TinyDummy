@@ -2,8 +2,9 @@ using Definition;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 
-public class StateSlider : LifeCycle
+public class StateSlider : MonoBehaviour
 {
     [SerializeField]
     private GameObject target;
@@ -17,22 +18,32 @@ public class StateSlider : LifeCycle
     private Slider healthBar;
     [SerializeField]
     private Slider happinessBar;
+    [SerializeField]
+    private Slider ageFigureBar;
 
-
+    private ILifeCycleService iLifeCycleService;  
 
     private void Update()
     {
-        if (this.gameObject.activeSelf)
+        if (iLifeCycleService == null)
+            iLifeCycleService = this.transform.parent.GetComponent<LifeCycle>().iLifeCycleService;
+        else
         {
-            hungryBar.value = UnitService.GetHungry() / 100f;
-            thirstBar.value = UnitService.GetThirst() / 100f;
-            healthBar.value = UnitService.GetHealth() / 100f;
-            happinessBar.value = UnitService.GetHappiness() / 100f;
+            if (this.gameObject.activeSelf && iLifeCycleService.GetCurrAge() != AgeType.Egg)
+            {
+                hungryBar.value = iLifeCycleService.GetUnitService().GetHungry() / 100f;
+                thirstBar.value = iLifeCycleService.GetUnitService().GetThirst() / 100f;
+                healthBar.value = iLifeCycleService.GetUnitService().GetHealth() / 100f;
+                happinessBar.value = iLifeCycleService.GetUnitService().GetHappiness() / 100f;
+            }
         }
     }
     void LateUpdate()
     {
-        if (this.gameObject.activeSelf)
-            transform.rotation = Quaternion.Euler(0, -target.transform.rotation.y, 0);
+        if (iLifeCycleService != null)
+        {
+            if (this.gameObject.activeSelf && iLifeCycleService.GetCurrAge() != AgeType.Egg)
+                transform.rotation = Quaternion.Euler(0, -target.transform.rotation.y, 0);
+        }
     }
 }

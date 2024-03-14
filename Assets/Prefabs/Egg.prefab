@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2288265106072444302}
   - component: {fileID: 2288265106072444303}
   - component: {fileID: 7057322233494263224}
-  - component: {fileID: 6830175031319450127}
+  - component: {fileID: 785765420}
   m_Layer: 0
   m_Name: Egg
   m_TagString: Untagged
@@ -116,7 +116,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
---- !u!114 &6830175031319450127
+--- !u!114 &785765420
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,8 +128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32760f33342482f4d96df0b8a329c75b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currAge: 0
-  statePrefabList: []
   growBar: {fileID: 4419370642690220653}
 --- !u!1 &4419370641773021835
 GameObject:

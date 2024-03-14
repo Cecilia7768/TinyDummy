@@ -21,7 +21,7 @@ namespace AI
             agent = GetComponent<NavMeshAgent>();
             agent.isStopped = false;
 
-            unitService = this.gameObject.GetComponent<IUnitService>();
+            unitService = this.transform.parent.GetComponent<IUnitService>();
 
             if (unitService != null && !isInitSet)
             {

@@ -12,7 +12,7 @@ namespace AI
 
         public override void OnStart()
         {
-            unitService = this.gameObject.GetComponent<IUnitService>();
+            unitService = this.transform.parent.GetComponent<IUnitService>();
         }
 
         /// <summary>
