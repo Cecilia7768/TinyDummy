@@ -1,7 +1,7 @@
 using Definition;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class HatchCycle : MonoBehaviour
 {
@@ -15,41 +15,22 @@ public class HatchCycle : MonoBehaviour
     private void Start()
     {
         iLifeCycleService = this.transform.parent.GetComponent<ILifeCycleService>();
-
-        StartCoroutine(SetGrowBarValue());
-        StartCoroutine(Hatching());
     }
-
-    IEnumerator SetGrowBarValue()
+    private void Update()
     {
-        while(iLifeCycleService == null) yield return null;
-        while(true)
+        if (iLifeCycleService != null)
         {
-            if (iLifeCycleService.GetCurrAge() == AgeType.Egg)
+            if (currGrowthTime < growthTime)
             {
-                growBar.value = currGrowthTime / growthTime;
+                currGrowthTime += Time.deltaTime;
+                if (iLifeCycleService.GetCurrAge() == AgeType.Egg)
+                    growBar.value = currGrowthTime / growthTime;
             }
-
-            yield return null;
+            else
+            {
+                growBar.value = 1;
+                iLifeCycleService.GrowUp();
+            }
         }
     }
-
-    /// <summary>
-    /// 부화 진행
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator Hatching()
-    {
-        while (iLifeCycleService == null) yield return null;
-
-        while (currGrowthTime < growthTime)
-        {
-            currGrowthTime += Time.deltaTime;
-            yield return null;
-        }
-        growBar.value = 1;
-
-        iLifeCycleService.SetCurrAge(AgeType.Child);
-    }
-
 }

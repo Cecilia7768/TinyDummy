@@ -11,6 +11,7 @@ namespace Definition
 
         #region Interface
 
+        //////////////////// GET ////////////////////
         public float GetHealth() => unitStatus.Health;
         public float GetHungry() => unitStatus.Hungry;
         public float GetThirst() => unitStatus.Thirst;
@@ -27,6 +28,20 @@ namespace Definition
         public float GetPatrolRadius() => unitStatus.PatrolRadius;
         public float GetPatrolTimer() => unitStatus.PatrolTimer;
 
+        public Vector3 GetGrowthEventPosi() => unitStatus.GrowthEventPosi;
+
+
+        //////////////////// SET ////////////////////
+        public void InitData()
+        {
+            unitStatus.Health = 80f;
+            unitStatus.Hungry = unitStatus.MaxHungry;
+            unitStatus.Thirst = unitStatus.MaxThirst;
+            unitStatus.Happiness = 50f;
+            unitStatus.AgeFigure = 1f;
+            //성장이벤트 발생위치 초기화
+            SetGrowthEventPosi(Vector3.zero);
+        }
 
         public void SetHealth(float health)
         {
@@ -50,7 +65,7 @@ namespace Definition
             unitStatus.Happiness = Mathf.Clamp(unitStatus.Happiness, 0, unitStatus.MaxHappiness);
         }
 
-        public void SetAgeFigure(float setAge)
+        public void SetAddAgeFigure(float setAge)
         {
             unitStatus.AgeFigure += setAge;
             unitStatus.AgeFigure = Mathf.Clamp(unitStatus.AgeFigure, 0, unitStatus.MaxAgeFigure);
@@ -70,6 +85,8 @@ namespace Definition
 
         public void SetPatrolRadius(float patrolRadius) => unitStatus.PatrolRadius = patrolRadius;
         public void SetPatrolTimer(float patrolTimer) => unitStatus.PatrolTimer = patrolTimer;
+
+        public void SetGrowthEventPosi(Vector3 growthEventPosi) => unitStatus.GrowthEventPosi = growthEventPosi;
 
         #endregion
     }

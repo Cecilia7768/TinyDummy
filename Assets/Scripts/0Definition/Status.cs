@@ -27,6 +27,10 @@ namespace Definition
         public float patrolRadius; // 순찰 반경
         public float patrolTimer; // 위치 변경 간격
 
+        [Space(3)]
+        [Header("Position")]
+        public Vector3 growthEventPosi; //성장이벤트 발생위치.
+
         public float Health { get { return health; } set { health = value; } }
         public float Hungry { get { return hungry; } set { hungry = value; } }
         public float Thirst { get { return thirst; } set { thirst = value; } }
@@ -44,6 +48,7 @@ namespace Definition
 
         public float PatrolRadius { get { return patrolRadius; } set { patrolRadius = value; } }
         public float PatrolTimer { get { return patrolTimer; } set { patrolTimer = value; } }
+        public Vector3 GrowthEventPosi { get { return growthEventPosi; } set { growthEventPosi = value; } }
     }
 
     [Serializable]

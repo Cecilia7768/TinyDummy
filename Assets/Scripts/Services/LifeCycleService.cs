@@ -10,6 +10,11 @@ public class LifeCycleService : MonoBehaviour , ILifeCycleService
 
     //성장할때마다 발생되는 이벤트
     public static event Action setGrowthEvent;
+    //성장할떄 라이프사이클 시작
+    public static event Action startLifeCycle;
+
+    //사망
+    public static event Action deadCycle;
 
     private void Awake()
     {
@@ -32,10 +37,17 @@ public class LifeCycleService : MonoBehaviour , ILifeCycleService
     public List<GameObject> GetStatePrefabList() => lifeCycleStatus.StatePrefabList;
 
     public void SetUnitService(IUnitService iUnitService) => lifeCycleStatus.UnitService = iUnitService;
-    public void SetCurrAge(AgeType currAge)
+    public void GrowUp()
     {
-        lifeCycleStatus.CurrAge = currAge;
+        lifeCycleStatus.CurrAge++;
         setGrowthEvent?.Invoke();
+        startLifeCycle?.Invoke();
+    }
+    public void Dead()
+    {
+        lifeCycleStatus.CurrAge++;
+        setGrowthEvent?.Invoke();
+        deadCycle?.Invoke();
     }
     #endregion
 }

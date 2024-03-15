@@ -28,8 +28,9 @@ public class ShapeCycle : MonoBehaviour
             iLifeCycleService.GetStatePrefabList()[i].SetActive(false);
         }
             
-        Debug.LogError(iLifeCycleService.GetCurrAge().ToString());
         iLifeCycleService.GetStatePrefabList()[(int)iLifeCycleService.GetCurrAge()]?.SetActive(true);
+        iLifeCycleService.GetStatePrefabList()[(int)iLifeCycleService.GetCurrAge()].gameObject.transform.position
+            = iLifeCycleService.GetUnitService().GetGrowthEventPosi();
     }
 
 

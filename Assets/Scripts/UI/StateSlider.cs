@@ -35,6 +35,8 @@ public class StateSlider : MonoBehaviour
                 thirstBar.value = iLifeCycleService.GetUnitService().GetThirst() / 100f;
                 healthBar.value = iLifeCycleService.GetUnitService().GetHealth() / 100f;
                 happinessBar.value = iLifeCycleService.GetUnitService().GetHappiness() / 100f;
+                ageFigureBar.value = iLifeCycleService.GetUnitService().GetAgeFigure() /
+                    iLifeCycleService.GetUnitService().GetMaxAgeFigure();
             }
         }
     }

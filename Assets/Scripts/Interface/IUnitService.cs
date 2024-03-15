@@ -1,15 +1,18 @@
-using UnityEditor;
-using UnityEngine.Analytics;
+using UnityEngine;
 
 namespace Definition
 {
     public interface IUnitService
     {
+        public void InitData();
+
+
+        //////////////////// GET ////////////////////
         public float GetHealth();
         public float GetHungry();
-        public float GetThirst();       
-        public float GetHappiness();    
-        public float GetAgeFigure();    
+        public float GetThirst();
+        public float GetHappiness();
+        public float GetAgeFigure();
 
         public GenderType GetGender();
 
@@ -21,12 +24,15 @@ namespace Definition
         public float GetPatrolRadius();
         public float GetPatrolTimer();
 
+        public Vector3 GetGrowthEventPosi();
 
+
+        //////////////////// SET ////////////////////
         public void SetHealth(float health);
         public void SetHungry(float hungry);
-        public void SetThirst(float thirst);  
+        public void SetThirst(float thirst);
         public void SetHappiness(float happiness);
-        public void SetAgeFigure(float setAge);
+        public void SetAddAgeFigure(float setAge);
 
 
         /// <summary>
@@ -45,5 +51,6 @@ namespace Definition
         public void SetPatrolRadius(float patrolRadius);
         public void SetPatrolTimer(float patrolTimer);
 
+        public void SetGrowthEventPosi(Vector3 growthEventPosi);
     }
 }

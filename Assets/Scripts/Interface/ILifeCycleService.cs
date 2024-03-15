@@ -9,5 +9,6 @@ public interface ILifeCycleService
     public List<GameObject> GetStatePrefabList();
 
     public void SetUnitService(IUnitService iUnitService);
-    public void SetCurrAge(AgeType currAge);
+    public void GrowUp();
+    public void Dead();
 }

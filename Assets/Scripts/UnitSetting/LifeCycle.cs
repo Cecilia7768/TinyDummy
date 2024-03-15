@@ -1,13 +1,10 @@
 using Definition;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class LifeCycle : MonoBehaviour 
-{   
+public class LifeCycle : MonoBehaviour
+{
     [SerializeField]
     [Header("초당 허기/갈증 변화 수치")]
     private float getHungry; //초당 배고파지는 수치
@@ -28,20 +25,49 @@ public class LifeCycle : MonoBehaviour
     private void Awake()
     {
         iLifeCycleService = this.transform.parent.GetComponent<ILifeCycleService>();
-    }
-    private void Start()
-    {
-        agent = GetComponent<NavMeshAgent>();
 
+
+        LifeCycleService.startLifeCycle += () =>
+        {
+            agent = GetComponent<NavMeshAgent>();
+            if (agent != null && iLifeCycleService.GetCurrAge().ToString() != agent.gameObject.name) return;
+
+            InitData();
+
+            StartCoroutine(DecreaseStatus());
+            StartCoroutine(SetHealthCondition());
+            StartCoroutine(SetHappinessCondition());
+            StartCoroutine(MakeBabyJJack());
+            StartCoroutine(SetGrowth());
+        };
+
+        LifeCycleService.deadCycle += () =>
+        {
+            if(iLifeCycleService == null || agent == null) return;
+            if (iLifeCycleService.GetCurrAge().ToString() != agent.gameObject.name) return;
+            if (iLifeCycleService.GetCurrAge() != AgeType.Dead) return;
+            StartCoroutine(Dead());
+        };
+    }
+
+
+    /// <summary>
+    /// 데이터 전체 초기화
+    /// </summary>
+    private void InitData()
+    {
+        if (iLifeCycleService.GetCurrAge() == AgeType.Old)
+            agent.speed = 1f;
+        else
+            agent.speed = 3f;
+        ///감소 수치 설정
         getHungry = UnityEngine.Random.Range(0.1f, 1f);
         getThirst = UnityEngine.Random.Range(0.5f, 1.2f);
+        getHappiness = 5f;
         getAgeFigure = 1f;
-        StartCoroutine(DecreaseStatus());
 
-        StartCoroutine(SetHealthCondition());
-        StartCoroutine(SetHappinessCondition());
-        StartCoroutine(MakeBabyJJack());
-        StartCoroutine(SetGrowth());
+        //전체 데이터 초기화
+        iLifeCycleService.GetUnitService().InitData();
     }
 
 
@@ -87,22 +113,29 @@ public class LifeCycle : MonoBehaviour
     /// <returns></returns>
     IEnumerator SetGrowth()
     {
-        while(true)
+        while (true)
         {
-            if (iLifeCycleService.GetUnitService() != null)
+            if (iLifeCycleService.GetCurrAge() != AgeType.Egg)
             {
-                iLifeCycleService.GetUnitService().SetAgeFigure(getAgeFigure);
-                if(iLifeCycleService.GetUnitService().GetAgeFigure() ==
-                    iLifeCycleService.GetUnitService().GetMaxAgeFigure())
+                if (iLifeCycleService.GetUnitService() != null)
                 {
-                   // iLifeCycleService.SetCurrAge(1);
+                    yield return new WaitForSeconds(1f);
+                    iLifeCycleService.GetUnitService().SetAddAgeFigure(getAgeFigure);
+
+                    if (iLifeCycleService.GetUnitService().GetAgeFigure() >=
+                        iLifeCycleService.GetUnitService().GetMaxAgeFigure())
+                    {
+                        iLifeCycleService.GetUnitService().SetGrowthEventPosi(this.gameObject.transform.position);
+                        if (iLifeCycleService.GetCurrAge() == AgeType.Old)
+                            iLifeCycleService.Dead();
+                        else
+                            iLifeCycleService.GrowUp();
+                        break;
+                    }
                 }
-                yield return new WaitForSeconds(1f);
             }
-            yield return null;
         }
     }
-
 
     /// <summary>
     /// 건강 수치
@@ -177,5 +210,16 @@ public class LifeCycle : MonoBehaviour
             }
         }
         return false;
+    }
+
+    /// <summary>
+    /// 사망
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator Dead()
+    {
+        yield return new WaitForSeconds(2f);
+        this.gameObject.SetActive(false);
+        this.gameObject.transform.parent.gameObject.SetActive(false);
     }
 }
