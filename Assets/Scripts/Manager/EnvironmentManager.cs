@@ -1,7 +1,5 @@
-using BehaviorDesigner.Runtime;
-using BehaviorDesigner.Runtime.Tasks.Movement;
+using Definition;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -60,9 +58,18 @@ public class EnvironmentManager : MonoBehaviour
     {
         spawnEgg += () =>
         {
-            Instantiate(eggPrefab, unitParent);
-            //GameObject egg = Instantiate(eggPrefab, unitParent);
-            //egg.transform.position = new Vector3(nestPosi.position.x, 1f, nestPosi.position.z);
+            GameObject egg = Instantiate(eggPrefab, unitParent);
+            int ran = UnityEngine.Random.Range(0, 100);
+            if (ran % 2 == 0)
+            {
+                egg.GetComponent<UnitService>().unitStatus.Gender = GenderType.Female;
+                JjackStandard.FemaleCount++;
+            }
+            else
+            {
+                egg.GetComponent<UnitService>().unitStatus.Gender = GenderType.Male;
+                JjackStandard.MaleCount++;
+            }
         };
     }
 

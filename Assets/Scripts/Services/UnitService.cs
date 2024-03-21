@@ -1,7 +1,4 @@
-using System.Collections;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Definition
 {
@@ -42,30 +39,54 @@ namespace Definition
         //////////////////// SET ////////////////////
         public void InitData()
         {
-            if (lifeCycleService.GetCurrAge() == AgeType.Egg)
+            switch (lifeCycleService.GetCurrAge())
             {
-                unitStatus.MaxHealth = 100f;
-                unitStatus.MaxHungry = 100f;
-                unitStatus.MaxThirst = 100f;
-                unitStatus.MaxHappiness = 100f;
-                unitStatus.MaxAgeFigure = 100f;
+                case AgeType.Egg:
+                    unitStatus.MaxHealth = 100f;
+                    unitStatus.MaxHungry = 100f;
+                    unitStatus.MaxThirst = 100f;
+                    unitStatus.MaxHappiness = 100f;
+                    unitStatus.MaxAgeFigure = 100f;
 
-                unitStatus.Health = 80f;
-                unitStatus.Hungry = unitStatus.MaxHungry;
-                unitStatus.Thirst = unitStatus.MaxThirst;
-                unitStatus.Happiness = 50f;
-                unitStatus.PatrolRadius = 70f;
-                unitStatus.PatrolTimer = 3f;
+                    unitStatus.Health = 80f;
+                    unitStatus.Hungry = unitStatus.MaxHungry;
+                    unitStatus.Thirst = unitStatus.MaxThirst;
+                    unitStatus.Happiness = 50f;
+                    unitStatus.PatrolRadius = 70f;
+                    unitStatus.PatrolTimer = 3f;
+
+                    JjackStandard.EggCount++;
+                    break;
+                case AgeType.Child:
+                    JjackStandard.ChildCount++;
+                    JjackStandard.EggCount--;
+                    break;
+                case AgeType.Adult:
+                    if (unitStatus.Gender == GenderType.Male)
+                        JjackStandard.MaleAdultCount++;
+                    JjackStandard.AdultCount++;
+                    JjackStandard.ChildCount--;
+                    break;
+                case AgeType.Old:
+                    if (unitStatus.Gender == GenderType.Male)
+                        JjackStandard.MaleAdultCount--;
+                    JjackStandard.OldCount++;
+                    JjackStandard.AdultCount--;
+                    break;
+                case AgeType.Dead:
+                    JjackStandard.DeadCount++;
+                    JjackStandard.OldCount--;
+                    break;
             }
             unitStatus.AgeFigure = 0f;
 
             //성장이벤트 발생위치 초기화
-            SetGrowthEventPosi(Vector3.zero);            
+            SetGrowthEventPosi(Vector3.zero);
         }
 
         public void SetHealth(float health)
         {
-            this.unitStatus.Health += health; 
+            this.unitStatus.Health += health;
             unitStatus.Health = Mathf.Clamp(unitStatus.Health, 0, unitStatus.MaxHealth);
         }
         public void SetHungry(float hungry)

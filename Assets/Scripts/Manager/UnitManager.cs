@@ -19,21 +19,21 @@ public class UnitManager : MonoBehaviour
     {
         GameObject jjackTmpObj;
         jjackList.Clear();
-        for (int i = 0; i < JjackStandard.jjackMaxCount; i++)
+        for (int i = 0; i < JjackStandard.FirstCreatCount; i++)
         {
             yield return new WaitForSeconds(.5f);
             jjackTmpObj = Instantiate(jjackPrefab, this.transform);
             jjackTmpObj.transform.localPosition = new Vector3(EnvironmentManager.Instance.nestPosi.position.x
                 , 1f, EnvironmentManager.Instance.nestPosi.position.z);
-            if (JjackStandard.maleCount > JjackStandard.femaleCount)
+            if (JjackStandard.MaleCount > JjackStandard.FemaleCount)
             {
                 jjackTmpObj.GetComponent<UnitService>().unitStatus.Gender = GenderType.Female;
-                JjackStandard.femaleCount++;
+                JjackStandard.FemaleCount++;
             }
             else
             {
                 jjackTmpObj.GetComponent<UnitService>().unitStatus.Gender = GenderType.Male;
-                JjackStandard.maleCount++;
+                JjackStandard.MaleCount++;
             }
             jjackList.Add(jjackTmpObj);
         }
