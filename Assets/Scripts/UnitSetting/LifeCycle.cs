@@ -13,10 +13,6 @@ public class LifeCycle : MonoBehaviour
     [Header("틱당 행복도 증가 수치")]
     [SerializeField]
     private float getHappiness;
-    [Space(3)]
-    [Header("틱당 나이 증가 수치")]
-    [SerializeField]
-    private float getAgeFigure;
 
     private NavMeshAgent agent;
 
@@ -25,9 +21,14 @@ public class LifeCycle : MonoBehaviour
     private void Awake()
     {
         iLifeCycleService = this.transform.parent.GetComponent<ILifeCycleService>();
+    
+        StartLifeCycleSubscribe(iLifeCycleService.GetLifeCycleService());
+        DeadCycleSubscribe(iLifeCycleService.GetLifeCycleService());  
+    }
 
-
-        LifeCycleService.startLifeCycle += () =>
+    public void StartLifeCycleSubscribe(LifeCycleService publisher)
+    {
+        publisher.startLifeCycle += () =>
         {
             agent = GetComponent<NavMeshAgent>();
             if (agent != null && iLifeCycleService.GetCurrAge().ToString() != agent.gameObject.name) return;
@@ -37,20 +38,19 @@ public class LifeCycle : MonoBehaviour
             StartCoroutine(DecreaseStatus());
             StartCoroutine(SetHealthCondition());
             StartCoroutine(SetHappinessCondition());
-            StartCoroutine(MakeBabyJJack());
             StartCoroutine(SetGrowth());
         };
-
-        LifeCycleService.deadCycle += () =>
+    }
+    public void DeadCycleSubscribe(LifeCycleService publisher)
+    {
+        publisher.deadCycle += () =>
         {
-            if(iLifeCycleService == null || agent == null) return;
+            if (iLifeCycleService == null || agent == null) return;
             if (iLifeCycleService.GetCurrAge().ToString() != agent.gameObject.name) return;
             if (iLifeCycleService.GetCurrAge() != AgeType.Dead) return;
             StartCoroutine(Dead());
         };
     }
-
-
     /// <summary>
     /// 데이터 전체 초기화
     /// </summary>
@@ -64,7 +64,6 @@ public class LifeCycle : MonoBehaviour
         getHungry = UnityEngine.Random.Range(0.1f, 1f);
         getThirst = UnityEngine.Random.Range(0.5f, 1.2f);
         getHappiness = 5f;
-        getAgeFigure = 1f;
 
         //전체 데이터 초기화
         iLifeCycleService.GetUnitService().InitData();
@@ -74,19 +73,18 @@ public class LifeCycle : MonoBehaviour
     /// <summary>
     /// 현재 연령별 노화 속도
     /// </summary>
-    private void GetAgeFigure()
+    private float GetAgeFigure()
     {
         switch (iLifeCycleService.GetCurrAge())
         {
-            case AgeType.Egg:
-                break;
             case AgeType.Child:
-                break;
+                return 10f;
             case AgeType.Adult:
-                break;
+                return 1f;
             case AgeType.Old:
-                break;
+                return 1f;
         }
+        return 0;
     }
 
     /// <summary>
@@ -120,7 +118,7 @@ public class LifeCycle : MonoBehaviour
                 if (iLifeCycleService.GetUnitService() != null)
                 {
                     yield return new WaitForSeconds(1f);
-                    iLifeCycleService.GetUnitService().SetAddAgeFigure(getAgeFigure);
+                    iLifeCycleService.GetUnitService().SetAddAgeFigure(GetAgeFigure());
 
                     if (iLifeCycleService.GetUnitService().GetAgeFigure() >=
                         iLifeCycleService.GetUnitService().GetMaxAgeFigure())
@@ -134,6 +132,9 @@ public class LifeCycle : MonoBehaviour
                     }
                 }
             }
+            else
+                this.transform.position =
+                        iLifeCycleService.GetUnitService().GetGrowthEventPosi();
         }
     }
 
@@ -174,45 +175,6 @@ public class LifeCycle : MonoBehaviour
     }
 
     /// <summary>
-    /// 산란
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator MakeBabyJJack()
-    {
-        while (true)
-        {
-            if (iLifeCycleService.GetUnitService() == null) yield return null;
-            yield return null;
-
-            if (iLifeCycleService.GetUnitService().GetHappiness() >= 100)
-            {
-                agent.destination = EnvironmentManager.Instance.nestPosi.transform.position;
-
-                while (!HasReachedDestination())
-                {
-                    yield return null;
-                }
-                break;
-            }
-        }
-    }
-
-    bool HasReachedDestination()
-    {
-        if (!agent.pathPending) // 경로 계산이 완료되었는지 확인
-        {
-            if (agent.remainingDistance <= agent.stoppingDistance)
-            {
-                if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    /// <summary>
     /// 사망
     /// </summary>
     /// <returns></returns>
@@ -222,4 +184,23 @@ public class LifeCycle : MonoBehaviour
         this.gameObject.SetActive(false);
         this.gameObject.transform.parent.gameObject.SetActive(false);
     }
+
+    /*
+
+    #region Interface
+
+    public void StartLifeCycle()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        if (agent != null && iLifeCycleService.GetCurrAge().ToString() != agent.gameObject.name) return;
+
+        InitData();
+
+        StartCoroutine(DecreaseStatus());
+        StartCoroutine(SetHealthCondition());
+        StartCoroutine(SetHappinessCondition());
+        StartCoroutine(SetGrowth());
+    }
+    #endregion
+    */
 }

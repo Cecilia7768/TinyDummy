@@ -14,13 +14,13 @@ namespace AI
         {
             base.OnStart();
             agent = GetComponent<NavMeshAgent>();
+            agent.isStopped = false;
         }
 
         public override TaskStatus OnUpdate()
         {
             if (!agent.pathPending && !agent.hasPath && agent.velocity.sqrMagnitude == 0f)
             {
-                agent.isStopped = false;
                 agent.SetDestination(CanSeeObject.targetObject.Value.transform.position);
             }
 

@@ -22,9 +22,9 @@ public class UnitManager : MonoBehaviour
         for (int i = 0; i < JjackStandard.jjackMaxCount; i++)
         {
             yield return new WaitForSeconds(.5f);
-            jjackTmpObj = Instantiate(jjackPrefab, Vector3.zero, Quaternion.identity, this.transform);
-            jjackTmpObj.transform.localScale = new Vector3(5, 5, 5);
-            jjackTmpObj.transform.position = new Vector3(0, 25.5f, 0);
+            jjackTmpObj = Instantiate(jjackPrefab, this.transform);
+            jjackTmpObj.transform.localPosition = new Vector3(EnvironmentManager.Instance.nestPosi.position.x
+                , 1f, EnvironmentManager.Instance.nestPosi.position.z);
             if (JjackStandard.maleCount > JjackStandard.femaleCount)
             {
                 jjackTmpObj.GetComponent<UnitService>().unitStatus.Gender = GenderType.Female;
@@ -35,7 +35,6 @@ public class UnitManager : MonoBehaviour
                 jjackTmpObj.GetComponent<UnitService>().unitStatus.Gender = GenderType.Male;
                 JjackStandard.maleCount++;
             }
-
             jjackList.Add(jjackTmpObj);
         }
     }

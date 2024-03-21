@@ -16,8 +16,6 @@ namespace AI
 
         public override void OnStart()
         {
-            base.OnStart();
-
             agent = GetComponent<NavMeshAgent>();
             agent.isStopped = false;
 

@@ -8,6 +8,14 @@ namespace Definition
     public class UnitService : MonoBehaviour, IUnitService
     {
         public UnitStatus unitStatus;
+        private LifeCycleService lifeCycleService;
+
+        private void Awake()
+        {
+            unitStatus = new UnitStatus();
+            lifeCycleService = this.GetComponent<LifeCycleService>();
+            InitData();
+        }
 
         #region Interface
 
@@ -34,13 +42,25 @@ namespace Definition
         //////////////////// SET ////////////////////
         public void InitData()
         {
-            unitStatus.Health = 80f;
-            unitStatus.Hungry = unitStatus.MaxHungry;
-            unitStatus.Thirst = unitStatus.MaxThirst;
-            unitStatus.Happiness = 50f;
-            unitStatus.AgeFigure = 1f;
+            if (lifeCycleService.GetCurrAge() == AgeType.Egg)
+            {
+                unitStatus.MaxHealth = 100f;
+                unitStatus.MaxHungry = 100f;
+                unitStatus.MaxThirst = 100f;
+                unitStatus.MaxHappiness = 100f;
+                unitStatus.MaxAgeFigure = 100f;
+
+                unitStatus.Health = 80f;
+                unitStatus.Hungry = unitStatus.MaxHungry;
+                unitStatus.Thirst = unitStatus.MaxThirst;
+                unitStatus.Happiness = 50f;
+                unitStatus.PatrolRadius = 70f;
+                unitStatus.PatrolTimer = 3f;
+            }
+            unitStatus.AgeFigure = 0f;
+
             //성장이벤트 발생위치 초기화
-            SetGrowthEventPosi(Vector3.zero);
+            SetGrowthEventPosi(Vector3.zero);            
         }
 
         public void SetHealth(float health)
@@ -73,7 +93,7 @@ namespace Definition
 
         public void InitSetHappiness()
         {
-            unitStatus.Happiness = 50;
+            unitStatus.Happiness = 15;
         }
         public void SetGender(GenderType genderType) => unitStatus.Gender = genderType;
 

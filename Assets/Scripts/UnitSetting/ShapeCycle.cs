@@ -1,18 +1,23 @@
 using Definition;
 using System;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ShapeCycle : MonoBehaviour
 {
-
     private ILifeCycleService iLifeCycleService;
 
     private void Start()
     {
         iLifeCycleService = this.GetComponent<ILifeCycleService>();
 
-        LifeCycleService.setGrowthEvent += ActiveAgePrefab;
+        SetGrowthEventSubscribe(iLifeCycleService.GetLifeCycleService());
         ActiveAgePrefab();
+    }
+    
+    public void SetGrowthEventSubscribe(LifeCycleService publisher)
+    {
+        publisher.setGrowthEvent += ActiveAgePrefab;
     }
 
     /// <summary>

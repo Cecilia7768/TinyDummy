@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Definition;
 
 namespace BehaviorDesigner.Runtime.Tasks.Movement
 {
@@ -74,7 +75,16 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
         /// Odin
         /// </summary>
         public static SharedGameObject targetObject; // 공유 변수
-        
+
+
+        private IUnitService unitService;
+
+        public override void OnAwake()
+        {
+            base.OnAwake();
+            unitService = this.transform.parent.GetComponent<IUnitService>();
+        }
+
 
         // Returns success if an object was found otherwise failure
         public override TaskStatus OnUpdate()
@@ -129,6 +139,19 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
                     }
                 }
             }
+
+            if (unitService != null)
+            {
+                if (unitService.GetThirst() < 80)
+                {
+                    m_TargetTag.Value = "Drink";
+                }
+                else if (unitService.GetHungry() < 80)
+                {
+                    m_TargetTag.Value = "Food";
+                }
+            }
+
 
             if (m_ReturnedObject.Value == null && (m_DetectionMode.Value & DetectionMode.Tag) != 0 && !string.IsNullOrEmpty(m_TargetTag.Value)) {
                 var targets = GameObject.FindGameObjectsWithTag(m_TargetTag.Value);

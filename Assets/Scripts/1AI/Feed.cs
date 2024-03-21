@@ -2,16 +2,19 @@ using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime.Tasks.Movement;
 using Definition;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace AI
 {
     public class Feed : Action
     {
         private IUnitService unitService;
+        private NavMeshAgent agent;
 
         public override void OnStart()
         {
             unitService = this.transform.parent.GetComponent<IUnitService>();
+            agent = GetComponent<NavMeshAgent>();
         }
         public override TaskStatus OnUpdate()
         {
@@ -24,10 +27,11 @@ namespace AI
                     {
                         ActionByObjectType(obj);
                         CanSeeObject.targetObject = null;
+                        agent.isStopped = false;
                         return TaskStatus.Success;
                     }
                 }
-                return TaskStatus.Success;
+               // return TaskStatus.Success;
             }
             return TaskStatus.Running;
         }

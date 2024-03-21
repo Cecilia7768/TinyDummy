@@ -42,6 +42,11 @@ public class EnvironmentManager : MonoBehaviour
     [SerializeField]
     private Transform environmentParent;
 
+    [Space(3)]
+    [SerializeField]
+    [Header("==== 유닛 생성 위치 ====")]
+    private Transform unitParent;
+
 
     /// <summary>
     /// 산란 관련
@@ -55,9 +60,9 @@ public class EnvironmentManager : MonoBehaviour
     {
         spawnEgg += () =>
         {
-            GameObject egg = Instantiate(eggPrefab, nestPosi);
-            egg.transform.position = new Vector3 (nestPosi.position.x, 1f,
-                nestPosi.position.z);
+            Instantiate(eggPrefab, unitParent);
+            //GameObject egg = Instantiate(eggPrefab, unitParent);
+            //egg.transform.position = new Vector3(nestPosi.position.x, 1f, nestPosi.position.z);
         };
     }
 

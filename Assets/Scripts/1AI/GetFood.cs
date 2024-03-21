@@ -25,7 +25,7 @@ namespace AI
             }
 
             float distanceToTarget = Vector3.Distance(agent.transform.position, CanSeeObject.targetObject.Value.transform.position);
-            if (distanceToTarget <= 10f)
+            if (distanceToTarget <= 13f)
             {
                 agent.isStopped = true; 
                 return TaskStatus.Success;

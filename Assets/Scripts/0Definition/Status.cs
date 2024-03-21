@@ -71,6 +71,7 @@ namespace Definition
     {
         public IUnitService unitService;
         public AgeType currAge;
+        public LifeCycleService lifeCycleService;
 
         [Space(5)]
         [Header("성장 상태")]
@@ -78,6 +79,7 @@ namespace Definition
 
         public IUnitService UnitService { get { return unitService; } set { unitService = value; } }
         public AgeType CurrAge { get { return currAge; } set { currAge = value; } }
+        public LifeCycleService LifeCycleService { get { return lifeCycleService; } set { lifeCycleService = value; } }
         public List<GameObject> StatePrefabList { get { return statePrefabList; } set { statePrefabList = value; } }
     }
 

@@ -8,13 +8,17 @@ public class HatchCycle : MonoBehaviour
     [SerializeField]
     private Slider growBar;
 
-    private const float growthTime = 2f; // 부화까지 걸리는 시간
+    private const float growthTime = 5f; // 부화까지 걸리는 시간
     private float currGrowthTime = 0f; // 현재 성장 시간
 
     private ILifeCycleService iLifeCycleService;
     private void Start()
     {
         iLifeCycleService = this.transform.parent.GetComponent<ILifeCycleService>();
+
+        this.transform.position = new Vector3(EnvironmentManager.Instance.nestPosi.position.x
+                , 1f, EnvironmentManager.Instance.nestPosi.position.z);
+        iLifeCycleService.GetUnitService().SetGrowthEventPosi(this.gameObject.transform.position);
     }
     private void Update()
     {
