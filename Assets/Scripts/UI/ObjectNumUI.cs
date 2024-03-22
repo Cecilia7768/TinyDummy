@@ -21,6 +21,8 @@ public class ObjectNumUI : MonoBehaviour
     private TMP_Text maleNum;
     [SerializeField]
     private TMP_Text femaleNum;
+    [SerializeField]
+    private TMP_Text totalNum;
 
     [SerializeField]
     private GameObject specialUnit;
@@ -44,6 +46,8 @@ public class ObjectNumUI : MonoBehaviour
 
             maleNum.text = JjackStandard.MaleCount.ToString();
             femaleNum.text = JjackStandard.FemaleCount.ToString();
+
+            totalNum.text = JjackStandard.TotalCount.ToString();
 
             specialUnit.SetActive(JjackStandard.BossCount > 0);
         }

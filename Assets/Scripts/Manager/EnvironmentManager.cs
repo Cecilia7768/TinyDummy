@@ -1,7 +1,6 @@
 using Definition;
-using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class EnvironmentManager : MonoBehaviour
@@ -15,12 +14,10 @@ public class EnvironmentManager : MonoBehaviour
         {
             if (_instance == null)
             {
-                // 이미 존재하는 인스턴스 검색
                 _instance = FindObjectOfType<EnvironmentManager>();
 
                 if (_instance == null)
                 {
-                    // 게임 오브젝트 생성 후 GameManager 컴포넌트 추가
                     GameObject go = new GameObject("EnvironmentManager");
                     _instance = go.AddComponent<EnvironmentManager>();
                 }
@@ -41,7 +38,7 @@ public class EnvironmentManager : MonoBehaviour
 
     [Space(3)]
     [Header("첫 스폰 위치")]
-    public Vector3 firstSpawnArea;
+    public Renderer firstSpawnArea;
 
     //[Space(3)]
     //[Header("산란 위치")]
@@ -51,53 +48,127 @@ public class EnvironmentManager : MonoBehaviour
     /// 산란 관련
     /// </summary>
     //public Transform nestPosi;
-    public GameObject eggPrefab;
 
-    public static event Action<Vector3> spawnEggEvent;
+    [SerializeField]
+    [Header("유닛 프리팹")]
+    private GameObject unitPrefab;
 
-    private void Start()
+    //유닛 딕셔너리
+    [SerializeField]
+    private static Dictionary<int, GameObject> unitsDic = new Dictionary<int, GameObject>();
+    public static Dictionary<int, GameObject> UnitsDic { get { return unitsDic; } }
+
+    private void Awake()
     {
-        spawnEggEvent += (trans) =>
+        GameManager.firstGameStartSetInit += () => StartCoroutine(CreateFirstUnits());
+    }
+
+    /// <summary>
+    /// 게임 시작시 기본 첫 유닛 생성
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator CreateFirstUnits()
+    {
+        GameObject jjackTmpObj;
+        for (int i = 0; i < JjackStandard.FirstCreatCount; i++)
         {
-            int eggSpawnCount = 1; 
-            int doubleSpawnChance = UnityEngine.Random.Range(0, 100); 
-            if (doubleSpawnChance < JjackStandard.ProbabilityDoubleEgg) // 20% 확률로 두 개의 egg 생성
+            yield return new WaitForSeconds(.5f);
+            jjackTmpObj = Instantiate(unitPrefab, unitParent);
+
+            if (JjackStandard.MaleCount > JjackStandard.FemaleCount)
             {
-                eggSpawnCount = 2;
+                jjackTmpObj.GetComponent<UnitService>().SetGender(GenderType.Female);
+                JjackStandard.FemaleCount++;
             }
             else
             {
-                if (JjackStandard.BossCount == 0)
-                {
-                    int specialEgg = UnityEngine.Random.Range(0, 100);
-                    if (specialEgg < JjackStandard.ProbabilityBossEgg) // 10% 확률로 우두머리 생성
-                    {
-                        JjackStandard.BossCount++;
-                        CreateEgg(trans, true);
-                        return;
-                    }
-                }
+                jjackTmpObj.GetComponent<UnitService>().SetGender(GenderType.Male);
+                JjackStandard.MaleCount++;
             }
 
-            for (int i = 0; i < eggSpawnCount; i++) 
-            {
-                CreateEgg(trans);
-            }
-        };
+            jjackTmpObj.transform.GetChild(0).localPosition = SetFirstCreateRandomPosition();
+
+            jjackTmpObj.GetComponent<UnitService>().SetNum(i);
+            unitsDic.Add(i, jjackTmpObj);
+            JjackStandard.TotalCount++;
+        }
     }
+
+    /// <summary>
+    /// 둥지 내 산란할 위치
+    /// </summary>
+    /// <returns></returns>
+    private Vector3 SetFirstCreateRandomPosition()
+    {
+        Renderer planeRenderer = firstSpawnArea;
+        Vector3 planeSize = planeRenderer.bounds.size;
+
+        float x = UnityEngine.Random.Range(-planeSize.x / 2, planeSize.x / 2);
+        float z = UnityEngine.Random.Range(-planeSize.z / 2, planeSize.z / 2);
+        Vector3 position = firstSpawnArea.transform.position + new Vector3(x, 1, z);
+
+        return position;
+    }
+
+    /// <summary>
+    /// 산란 시스템
+    /// </summary>
+    /// <param name="trans"></param>
     public void SpawnEGG(Vector3 trans)
     {
-        spawnEggEvent?.Invoke(trans);
+        int eggSpawnCount = 1;
+        int doubleSpawnChance = UnityEngine.Random.Range(0, 100);
+        if (doubleSpawnChance < JjackStandard.ProbabilityDoubleEgg) // 20% 확률로 두 개의 egg 생성
+        {
+            eggSpawnCount = 2;
+        }
+        else
+        {
+            if (JjackStandard.BossCount == 0)
+            {
+                int specialEgg = UnityEngine.Random.Range(0, 100);
+                if (specialEgg < JjackStandard.ProbabilityBossEgg &&
+                    JjackStandard.BossCount < JjackStandard.BossMaxCount) // 10% 확률로 우두머리 생성
+                {
+                    JjackStandard.BossCount++;
+                    CreateEgg(trans, true);
+                    return;
+                }
+            }
+        }
+
+        for (int i = 0; i < eggSpawnCount; i++)
+        {
+            CreateEgg(trans);
+        }
     }
 
     public void CreateEgg(Vector3 trans, bool isSpecialEgg = false)
     {
-        GameObject egg = Instantiate(eggPrefab, unitParent);
+        GameObject egg = Instantiate(unitPrefab, unitParent);
         egg.transform.position = trans;
+
+        egg.GetComponent<UnitService>().SetNum(JjackStandard.TotalCount);
+        unitsDic.Add(JjackStandard.TotalCount, egg);
+        JjackStandard.TotalCount++;
+
         var unitService = egg.GetComponent<UnitService>();
 
         //우두머리 결정
         unitService.unitStatus.EggGrade = isSpecialEgg ? EggGradeType.Special : EggGradeType.Common;
+
+        if(isSpecialEgg)
+        {
+            int num = Random.Range(0, BossData.BossAbilityList.Count);
+            foreach(var data in BossData.BossAbilityList)
+            {
+                if(data.Key == num)
+                {
+                    data.Value?.Invoke();
+                    break;
+                }
+            }
+        }
 
         DetermineGenderForEgg(unitService);
 
@@ -120,4 +191,12 @@ public class EnvironmentManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 테스트용 우두머리 생성 버튼
+    /// </summary>
+    public void MakeBossUnit()
+    {
+        CreateEgg(SetFirstCreateRandomPosition(), true);
+        JjackStandard.BossCount++;
+    }
 }

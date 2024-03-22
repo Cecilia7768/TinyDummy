@@ -6,8 +6,9 @@ namespace Definition
     {
         public void InitData();
 
-
         //////////////////// GET ////////////////////
+        public int GetNum();
+
         public float GetHealth();
         public float GetHungry();
         public float GetThirst();
@@ -29,6 +30,8 @@ namespace Definition
 
 
         //////////////////// SET ////////////////////
+        public void SetNum(int health);
+
         public void SetHealth(float health);
         public void SetHungry(float hungry);
         public void SetThirst(float thirst);

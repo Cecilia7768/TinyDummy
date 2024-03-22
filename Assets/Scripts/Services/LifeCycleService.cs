@@ -13,9 +13,6 @@ public class LifeCycleService : MonoBehaviour, ILifeCycleService
     //성장할때 라이프사이클 시작
     public event EventHandler startLifeCycle;
 
-    //사망
-    public event EventHandler deadCycle;
-
     private void Awake()
     {
         lifeCycleStatus.CurrAge = AgeType.Egg;
@@ -65,7 +62,6 @@ public class LifeCycleService : MonoBehaviour, ILifeCycleService
     {
         lifeCycleStatus.CurrAge++;
         setGrowthEvent?.Invoke();
-        //deadCycle?.Invoke();
 
         JjackStandard.OldCount--;
         JjackStandard.DeadCount++;

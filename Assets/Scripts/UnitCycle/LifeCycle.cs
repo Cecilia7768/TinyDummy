@@ -24,7 +24,6 @@ public class LifeCycle : MonoBehaviour
         iLifeCycleService = this.transform.parent.GetComponent<ILifeCycleService>();
     
         StartLifeCycleSubscribe(iLifeCycleService.GetLifeCycleService());
-        //DeadCycleSubscribe(iLifeCycleService.GetLifeCycleService());  
     }
 
     public void StartLifeCycleSubscribe(LifeCycleService publisher)
@@ -42,17 +41,6 @@ public class LifeCycle : MonoBehaviour
             StartCoroutine(SetGrowth());
         };
     }
-
-    //나중에 사망 이벤트 필요할때 다시 쓸것
-    //public void DeadCycleSubscribe(LifeCycleService publisher)
-    //{
-    //    publisher.deadCycle += () =>
-    //    {
-    //        if (iLifeCycleService == null || agent == null) return;
-    //        if (agent.gameObject.name != "Old") return;
-    //        if (iLifeCycleService.GetCurrAge() != AgeType.Dead) return;
-    //    };
-    //}
 
     /// <summary>
     /// 데이터 전체 초기화

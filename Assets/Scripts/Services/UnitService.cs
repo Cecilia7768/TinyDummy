@@ -16,29 +16,6 @@ namespace Definition
         }
 
         #region Interface
-
-        //////////////////// GET ////////////////////
-        public float GetHealth() => unitStatus.Health;
-        public float GetHungry() => unitStatus.Hungry;
-        public float GetThirst() => unitStatus.Thirst;
-        public float GetHappiness() => unitStatus.Happiness;
-        public float GetAgeFigure() => unitStatus.AgeFigure;
-
-        public GenderType GetGender() => unitStatus.Gender;
-        public EggGradeType GetEggGrade() => unitStatus.EggGrade;
-
-        public float GetMaxHealth() => unitStatus.MaxHealth;
-        public float GetMaxHungry() => unitStatus.MaxHungry;
-        public float GetMaxThirst() => unitStatus.MaxThirst;
-        public float GetMaxAgeFigure() => unitStatus.MaxAgeFigure;
-
-        public float GetPatrolRadius() => unitStatus.PatrolRadius;
-        public float GetPatrolTimer() => unitStatus.PatrolTimer;
-
-        public Vector3 GetGrowthEventPosi() => unitStatus.GrowthEventPosi;
-
-
-        //////////////////// SET ////////////////////
         public void InitData()
         {
             AgeType ageType = lifeCycleService.GetCurrAge();
@@ -85,6 +62,30 @@ namespace Definition
             //성장이벤트 발생위치 초기화
             SetGrowthEventPosi(Vector3.zero);
         }
+
+        //////////////////// GET ////////////////////
+        public int GetNum() => unitStatus.Num;
+        public float GetHealth() => unitStatus.Health;
+        public float GetHungry() => unitStatus.Hungry;
+        public float GetThirst() => unitStatus.Thirst;
+        public float GetHappiness() => unitStatus.Happiness;
+        public float GetAgeFigure() => unitStatus.AgeFigure;
+
+        public GenderType GetGender() => unitStatus.Gender;
+        public EggGradeType GetEggGrade() => unitStatus.EggGrade;
+
+        public float GetMaxHealth() => unitStatus.MaxHealth;
+        public float GetMaxHungry() => unitStatus.MaxHungry;
+        public float GetMaxThirst() => unitStatus.MaxThirst;
+        public float GetMaxAgeFigure() => unitStatus.MaxAgeFigure;
+
+        public float GetPatrolRadius() => unitStatus.PatrolRadius;
+        public float GetPatrolTimer() => unitStatus.PatrolTimer;
+
+        public Vector3 GetGrowthEventPosi() => unitStatus.GrowthEventPosi;
+
+        //////////////////// SET ////////////////////
+        public void SetNum(int num) => unitStatus.Num = num;
 
         public void SetHealth(float health)
         {

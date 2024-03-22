@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Definition;
+using System;
+
 public class GameManager : MonoBehaviour
 {
     #region Singleton
@@ -13,12 +15,10 @@ public class GameManager : MonoBehaviour
         {
             if (_instance == null)
             {
-                // 이미 존재하는 인스턴스 검색
                 _instance = FindObjectOfType<GameManager>();
 
                 if (_instance == null)
                 {
-                    // 게임 오브젝트 생성 후 GameManager 컴포넌트 추가
                     GameObject go = new GameObject("GameManager");
                     _instance = go.AddComponent<GameManager>();
                 }
@@ -28,5 +28,24 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    public static event Action firstGameStartSetInit;
 
+    private void Start()
+    {
+        if(GameSystem.isFirstGameStart)
+        {
+            firstGameStartSetInit?.Invoke();
+            GameSystem.isFirstGameStart = false;
+        }
+    }
+
+    #region 게임 속도
+    public void OnClickDefault() => SetGameSpeed(1);
+    public void OnClickX2() => SetGameSpeed(2);
+    public void OnClickX4() => SetGameSpeed(4);
+    public void SetGameSpeed(float speed)
+    {
+        Time.timeScale = speed;
+    }
+    #endregion
 }

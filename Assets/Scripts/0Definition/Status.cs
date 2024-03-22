@@ -7,6 +7,8 @@ namespace Definition
     [Serializable]
     public struct UnitStatus
     {
+        public int num;
+
         public float health;
         public float hungry;
         public float thirst;
@@ -31,6 +33,8 @@ namespace Definition
         [Space(3)]
         [Header("Position")]
         public Vector3 growthEventPosi; //성장이벤트 발생위치.
+
+        public int Num { get { return num; } set { num = value; } }
 
         public float Health { get { return health; } set { health = value; } }
         public float Hungry { get { return hungry; } set { hungry = value; } }
