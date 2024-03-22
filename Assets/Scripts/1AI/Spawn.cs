@@ -20,19 +20,23 @@ namespace AI
 
         public override TaskStatus OnUpdate()
         {
-            if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f))
-            {
-                unitService.InitSetHappiness();
-                EnvironmentManager.Instance.SpawnEGG();
-                return TaskStatus.Success;
-            }
+            unitService.InitSetHappiness();
+            EnvironmentManager.Instance.SpawnEGG(this.transform.position);
+            return TaskStatus.Success;
 
-            if (agent.velocity.sqrMagnitude == 0f)
-            {
-                agent.SetDestination(EnvironmentManager.Instance.nestPosi.transform.position);
-            }
+            //if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f))
+            //{
+            //    unitService.InitSetHappiness();
+            //    EnvironmentManager.Instance.SpawnEGG();
+            //    return TaskStatus.Success;
+            //}
 
-            return TaskStatus.Running;
+            //if (agent.velocity.sqrMagnitude == 0f)
+            //{
+            //    agent.SetDestination(EnvironmentManager.Instance.nestPosi.transform.position);
+            //}
+
+            //return TaskStatus.Running;
         }
     }
 }

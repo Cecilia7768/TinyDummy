@@ -22,6 +22,9 @@ public class ObjectNumUI : MonoBehaviour
     [SerializeField]
     private TMP_Text femaleNum;
 
+    [SerializeField]
+    private GameObject specialUnit;
+
     private void Start()
     {
         StartCoroutine(SetObjectNum());
@@ -41,6 +44,8 @@ public class ObjectNumUI : MonoBehaviour
 
             maleNum.text = JjackStandard.MaleCount.ToString();
             femaleNum.text = JjackStandard.FemaleCount.ToString();
+
+            specialUnit.SetActive(JjackStandard.BossCount > 0);
         }
     }
 }

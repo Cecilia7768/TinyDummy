@@ -14,6 +14,7 @@ namespace Definition
         public float ageFigure; //나이 진행도
 
         public GenderType gender;
+        public EggGradeType eggGrade;
 
         [Space(10)]
         public float maxHealth;
@@ -38,6 +39,7 @@ namespace Definition
         public float AgeFigure { get { return ageFigure; } set { ageFigure = value; } }
        
         public GenderType Gender { get { return gender; } set { gender = value; } }        
+        public EggGradeType EggGrade { get { return eggGrade; } set { eggGrade = value; } }        
                
         public float MaxHealth { get { return maxHealth; } set { maxHealth = value; } }
         public float MaxHungry { get { return maxHungry; } set { maxHungry = value; } }
@@ -104,5 +106,11 @@ namespace Definition
         Adult,
         Old,
         Dead,
+    }
+    public enum EggGradeType
+    {
+        None = -1,
+        Common,
+        Special,
     }
 }

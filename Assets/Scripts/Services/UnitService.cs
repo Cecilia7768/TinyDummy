@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Definition
 {
@@ -24,6 +25,7 @@ namespace Definition
         public float GetAgeFigure() => unitStatus.AgeFigure;
 
         public GenderType GetGender() => unitStatus.Gender;
+        public EggGradeType GetEggGrade() => unitStatus.EggGrade;
 
         public float GetMaxHealth() => unitStatus.MaxHealth;
         public float GetMaxHungry() => unitStatus.MaxHungry;
@@ -39,21 +41,25 @@ namespace Definition
         //////////////////// SET ////////////////////
         public void InitData()
         {
-            switch (lifeCycleService.GetCurrAge())
+            AgeType ageType = lifeCycleService.GetCurrAge();
+            switch (ageType)
             {
                 case AgeType.Egg:
-                    unitStatus.MaxHealth = 100f;
-                    unitStatus.MaxHungry = 100f;
-                    unitStatus.MaxThirst = 100f;
+                    int num = 1;
+                    if (lifeCycleService.GetUnitService().GetEggGrade() == EggGradeType.Special)
+                        num++;
+                    unitStatus.MaxHealth = 100f * num;
+                    unitStatus.MaxHungry = 100f * num;
+                    unitStatus.MaxThirst = 100f * num;
                     unitStatus.MaxHappiness = 100f;
                     unitStatus.MaxAgeFigure = 100f;
 
-                    unitStatus.Health = 80f;
+                    unitStatus.Health = 80f * num;
                     unitStatus.Hungry = unitStatus.MaxHungry;
                     unitStatus.Thirst = unitStatus.MaxThirst;
                     unitStatus.Happiness = 50f;
                     unitStatus.PatrolRadius = 70f;
-                    unitStatus.PatrolTimer = 3f;
+                    unitStatus.PatrolTimer = 2f;
 
                     JjackStandard.EggCount++;
                     break;
@@ -72,10 +78,6 @@ namespace Definition
                         JjackStandard.MaleAdultCount--;
                     JjackStandard.OldCount++;
                     JjackStandard.AdultCount--;
-                    break;
-                case AgeType.Dead:
-                    JjackStandard.DeadCount++;
-                    JjackStandard.OldCount--;
                     break;
             }
             unitStatus.AgeFigure = 0f;
@@ -111,6 +113,8 @@ namespace Definition
             unitStatus.AgeFigure += setAge;
             unitStatus.AgeFigure = Mathf.Clamp(unitStatus.AgeFigure, 0, unitStatus.MaxAgeFigure);
         }
+
+        public void SetEggGrade(EggGradeType eggGrade) => unitStatus.EggGrade = eggGrade;
 
         public void InitSetHappiness()
         {

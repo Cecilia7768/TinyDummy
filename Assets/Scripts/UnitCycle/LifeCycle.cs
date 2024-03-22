@@ -1,5 +1,6 @@
 using Definition;
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -23,7 +24,7 @@ public class LifeCycle : MonoBehaviour
         iLifeCycleService = this.transform.parent.GetComponent<ILifeCycleService>();
     
         StartLifeCycleSubscribe(iLifeCycleService.GetLifeCycleService());
-        DeadCycleSubscribe(iLifeCycleService.GetLifeCycleService());  
+        //DeadCycleSubscribe(iLifeCycleService.GetLifeCycleService());  
     }
 
     public void StartLifeCycleSubscribe(LifeCycleService publisher)
@@ -41,25 +42,31 @@ public class LifeCycle : MonoBehaviour
             StartCoroutine(SetGrowth());
         };
     }
-    public void DeadCycleSubscribe(LifeCycleService publisher)
-    {
-        publisher.deadCycle += () =>
-        {
-            if (iLifeCycleService == null || agent == null) return;
-            if (iLifeCycleService.GetCurrAge().ToString() != agent.gameObject.name) return;
-            if (iLifeCycleService.GetCurrAge() != AgeType.Dead) return;
-            StartCoroutine(Dead());
-        };
-    }
+
+    //나중에 사망 이벤트 필요할때 다시 쓸것
+    //public void DeadCycleSubscribe(LifeCycleService publisher)
+    //{
+    //    publisher.deadCycle += () =>
+    //    {
+    //        if (iLifeCycleService == null || agent == null) return;
+    //        if (agent.gameObject.name != "Old") return;
+    //        if (iLifeCycleService.GetCurrAge() != AgeType.Dead) return;
+    //    };
+    //}
+
     /// <summary>
     /// 데이터 전체 초기화
     /// </summary>
     private void InitData()
     {
+        float num = 1f;
+        if (iLifeCycleService.GetUnitService().GetEggGrade() == EggGradeType.Special)
+            num = 2f;
+
         if (iLifeCycleService.GetCurrAge() == AgeType.Old)
-            agent.speed = 1f;
+            agent.speed = 1f * num;
         else
-            agent.speed = 3f;
+            agent.speed = 3f * num;
         ///감소 수치 설정
         getHungry = UnityEngine.Random.Range(0.1f, 1f);
         getThirst = UnityEngine.Random.Range(0.5f, 1.2f);
@@ -82,7 +89,7 @@ public class LifeCycle : MonoBehaviour
             case AgeType.Adult:
                 return 1f;
             case AgeType.Old:
-                return 1f;
+                return 5f;
         }
         return 0;
     }
@@ -173,34 +180,4 @@ public class LifeCycle : MonoBehaviour
             yield return new WaitForSeconds(2f);
         }
     }
-
-    /// <summary>
-    /// 사망
-    /// </summary>
-    /// <returns></returns>
-    IEnumerator Dead()
-    {
-        yield return new WaitForSeconds(2f);
-        this.gameObject.SetActive(false);
-        this.gameObject.transform.parent.gameObject.SetActive(false);
-    }
-
-    /*
-
-    #region Interface
-
-    public void StartLifeCycle()
-    {
-        agent = GetComponent<NavMeshAgent>();
-        if (agent != null && iLifeCycleService.GetCurrAge().ToString() != agent.gameObject.name) return;
-
-        InitData();
-
-        StartCoroutine(DecreaseStatus());
-        StartCoroutine(SetHealthCondition());
-        StartCoroutine(SetHappinessCondition());
-        StartCoroutine(SetGrowth());
-    }
-    #endregion
-    */
 }

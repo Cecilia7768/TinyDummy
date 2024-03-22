@@ -32,11 +32,15 @@ public class ShapeCycle : MonoBehaviour
         {
             iLifeCycleService.GetStatePrefabList()[i].SetActive(false);
         }
-            
-        iLifeCycleService.GetStatePrefabList()[(int)iLifeCycleService.GetCurrAge()]?.SetActive(true);
-        iLifeCycleService.GetStatePrefabList()[(int)iLifeCycleService.GetCurrAge()].gameObject.transform.position
-            = iLifeCycleService.GetUnitService().GetGrowthEventPosi();
+
+        var target = iLifeCycleService.GetStatePrefabList()[(int)iLifeCycleService.GetCurrAge()];
+        target?.SetActive(true);
+        target.gameObject.transform.position = iLifeCycleService.GetUnitService().GetGrowthEventPosi();
+      
+        if (iLifeCycleService.GetUnitService().GetEggGrade() == EggGradeType.Special)
+        {
+            var doubleScale = target.transform.localScale * 2;
+            target.transform.localScale = doubleScale;
+        }
     }
-
-
 }

@@ -14,8 +14,9 @@ public class FoodGenerator : MonoBehaviour
     private List<GameObject> foodList = new List<GameObject>();
     [SerializeField]
     private Transform foodParent;
+
     [SerializeField]
-    private int maxFoodCount = 10;
+    private const int maxFoodCount = 5; //생성되는 음식 최대 개수
 
     private Queue<GameObject> foodPool = new Queue<GameObject>();
 
@@ -49,7 +50,7 @@ public class FoodGenerator : MonoBehaviour
     {
         while (foodPool.Count > 0)
         {
-            float wait = Random.Range(.5f, 2f);
+            float wait = Random.Range(1f, 5f);
             yield return new WaitForSeconds(wait);
 
             GameObject foodToActivate = foodPool.Dequeue();

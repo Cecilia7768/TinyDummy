@@ -1,10 +1,9 @@
+using Definition;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Definition;
-using System;
 
-public class LifeCycleService : MonoBehaviour , ILifeCycleService
+public class LifeCycleService : MonoBehaviour, ILifeCycleService
 {
     public LifeCycleStatus lifeCycleStatus;
 
@@ -21,7 +20,7 @@ public class LifeCycleService : MonoBehaviour , ILifeCycleService
     {
         lifeCycleStatus.CurrAge = AgeType.Egg;
 
-        for (int i = 0; i< this.transform.childCount; i++)
+        for (int i = 0; i < this.transform.childCount; i++)
         {
             lifeCycleStatus.statePrefabList.Add(transform.GetChild(i).gameObject);
         }
@@ -30,7 +29,7 @@ public class LifeCycleService : MonoBehaviour , ILifeCycleService
     #region interface
     public IUnitService GetUnitService()
     {
-        if(lifeCycleStatus.UnitService == null)
+        if (lifeCycleStatus.UnitService == null)
             lifeCycleStatus.UnitService = GetComponent<UnitService>();
         return lifeCycleStatus.UnitService;
     }
@@ -57,11 +56,36 @@ public class LifeCycleService : MonoBehaviour , ILifeCycleService
             yield return null;
         startLifeCycle?.Invoke();
     }
+
+    /// <summary>
+    /// 사망
+    /// </summary>
+    /// <returns></returns>
     public void Dead()
     {
         lifeCycleStatus.CurrAge++;
         setGrowthEvent?.Invoke();
-        deadCycle?.Invoke();
+        //deadCycle?.Invoke();
+
+        JjackStandard.OldCount--;
+        JjackStandard.DeadCount++;
+
+        if (lifeCycleStatus.unitService.GetGender() == GenderType.Male)
+            JjackStandard.MaleCount--;
+        else
+            JjackStandard.FemaleCount--;
+
+        if (lifeCycleStatus.UnitService.GetEggGrade() == EggGradeType.Special)
+            JjackStandard.BossCount--;
+
+        StartCoroutine(CorDead());
+    }
+
+    //나중에 유저가 직접 치우게 될 경우 추가
+    IEnumerator CorDead()
+    {
+        yield return new WaitForSeconds(JjackStandard.BodyExtinctionTime);
+        Destroy(this.gameObject);
     }
     #endregion
 }

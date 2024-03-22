@@ -210,6 +210,7 @@
     <Compile Include="Assets\Behavior Designer\Runtime\Variables\SharedColor.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\NavMeshAgent\Stop.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Light\SetCullingMask.cs" />
+    <Compile Include="Assets\Scripts\1AI\Conditional\IsCanSpawn.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\AudioSource\SetIgnoreListenerPause.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Debug\DrawRay.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\NavMeshAgent\Warp.cs" />
@@ -232,7 +233,7 @@
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Transform\SetLocalScale.cs" />
     <Compile Include="Assets\Behavior Designer Movement\Scripts\Tasks\Cover.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Transform\GetEulerAngles.cs" />
-    <Compile Include="Assets\Scripts\UnitSetting\HatchCycle.cs" />
+    <Compile Include="Assets\Scripts\UnitCycle\HatchCycle.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Transform\GetParent.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Animator\StartPlayback.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Vector3\Dot.cs" />
@@ -300,7 +301,7 @@
     <Compile Include="Assets\Quirky Series Ultimate\_Scripts\QuirkySeriesDemo.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\LayerMask\SetLayer.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Conditionals\StackedConditional.cs" />
-    <Compile Include="Assets\Scripts\UnitSetting\LifeCycle.cs" />
+    <Compile Include="Assets\Scripts\UnitCycle\LifeCycle.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Math\LerpAngle.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\CharacterController\SetSlopeLimit.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Input\IsMouseDown.cs" />
@@ -324,7 +325,7 @@
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Rigidbody\SetMass.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\AudioSource\SetMinDistance.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\ParticleSystem\IsPlaying.cs" />
-    <Compile Include="Assets\Scripts\UnitSetting\ShapeCycle.cs" />
+    <Compile Include="Assets\Scripts\UnitCycle\ShapeCycle.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\SharedVariables\CompareSharedGameObjectList.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Object Drawers\IntSliderAttribute.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Variables\SharedBool.cs" />
@@ -358,6 +359,7 @@
     <Compile Include="Assets\Behavior Designer Movement\Scripts\BehaviorSelection.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Quaternion\Euler.cs" />
     <Compile Include="Assets\Behavior Designer Movement\Scripts\Tasks\Search.cs" />
+    <Compile Include="Assets\Scripts\UI\ObjectNumUI.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Decorators\Interrupt.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Animator\IsParameterControlledByCurve.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Rigidbody2D\GetAngularVelocity.cs" />
@@ -635,8 +637,6 @@
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Transform\LookAt.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\Vector2\ClampMagnitude.cs" />
     <Compile Include="Assets\Behavior Designer\Runtime\Tasks\Unity\NavMeshAgent\IsStopped.cs" />
-    <Compile Include="Assets\Scripts\UI\ObjectNumUI.cs" />
-    <Compile Include="Assets\Scripts\1AI\Conditional\IsCanSpawn.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

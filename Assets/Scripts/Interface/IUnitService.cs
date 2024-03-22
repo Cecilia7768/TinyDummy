@@ -15,6 +15,7 @@ namespace Definition
         public float GetAgeFigure();
 
         public GenderType GetGender();
+        public EggGradeType GetEggGrade();
 
         public float GetMaxHealth();
         public float GetMaxHungry();
@@ -34,6 +35,7 @@ namespace Definition
         public void SetHappiness(float happiness);
         public void SetAddAgeFigure(float setAge);
 
+        public void SetEggGrade(EggGradeType eggGrade);
 
         /// <summary>
         /// 행복도 초기화
