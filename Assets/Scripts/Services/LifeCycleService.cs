@@ -55,15 +55,37 @@ public class LifeCycleService : MonoBehaviour, ILifeCycleService
     }
 
     /// <summary>
-    /// 사망
+    /// 사망 (노화 또는 사냥당한)
     /// </summary>
     /// <returns></returns>
-    public void Dead()
+    public void Dead(bool isOld = true)
     {
-        lifeCycleStatus.CurrAge++;
+        if (isOld)
+        {
+            lifeCycleStatus.CurrAge++;
+            JjackStandard.OldCount--;
+        }
+        else //사냥당해서 죽은거면
+        {
+            switch(lifeCycleStatus.CurrAge)
+            {
+                case AgeType.Egg:
+                    JjackStandard.EggCount--;
+                    break;
+                case AgeType.Child:
+                    JjackStandard.ChildCount--;
+                    break;
+                case AgeType.Adult:
+                    JjackStandard.AdultCount--;
+                    break;
+                case AgeType.Old:
+                    JjackStandard.OldCount--;
+                    break;  
+            }
+            lifeCycleStatus.unitService.SetGrowthEventPosi(lifeCycleStatus.statePrefabList[(int)lifeCycleStatus.CurrAge].transform.position);
+            lifeCycleStatus.CurrAge = AgeType.Dead;
+        }
         setGrowthEvent?.Invoke();
-
-        JjackStandard.OldCount--;
         JjackStandard.DeadCount++;
 
         if (lifeCycleStatus.unitService.GetGender() == GenderType.Male)

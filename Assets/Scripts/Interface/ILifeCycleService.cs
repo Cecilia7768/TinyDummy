@@ -15,5 +15,5 @@ public interface ILifeCycleService
     public void SetUnitService(IUnitService iUnitService);
 
     public void GrowUp();
-    public void Dead();
+    public void Dead(bool isOld = true);
 }

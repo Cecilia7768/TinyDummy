@@ -137,16 +137,16 @@ public class EnvironmentManager : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < eggSpawnCount; i++)
+        for (float i = 0, posi = 0; i < eggSpawnCount; i++, posi += .2f)
         {
-            CreateEgg(trans);
+            CreateEgg(new Vector3(trans.x + posi, 0, trans.z + posi));
         }
     }
 
     public void CreateEgg(Vector3 trans, bool isSpecialEgg = false)
     {
         GameObject egg = Instantiate(unitPrefab, unitParent);
-        egg.transform.position = trans;
+        egg.transform.GetChild(0).localPosition = trans;
 
         egg.GetComponent<UnitService>().SetNum(JjackStandard.TotalCount);
         unitsDic.Add(JjackStandard.TotalCount, egg);

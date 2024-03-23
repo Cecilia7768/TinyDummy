@@ -73,11 +73,11 @@ public class LifeCycle : MonoBehaviour
         switch (iLifeCycleService.GetCurrAge())
         {
             case AgeType.Child:
-                return 10f;
+                return 2f;
             case AgeType.Adult:
                 return 1f;
             case AgeType.Old:
-                return 5f;
+                return 4f;
         }
         return 0;
     }

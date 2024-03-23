@@ -23,6 +23,8 @@ namespace Definition
         public float GetMaxThirst();
         public float GetMaxAgeFigure();
 
+        public bool GetIsAttacked();
+
         public float GetPatrolRadius();
         public float GetPatrolTimer();
 
@@ -52,7 +54,7 @@ namespace Definition
         public void SetMaxThirst(float thirst);
         public void SetMaxAgeFigure(float maxAgeFigure);
 
-
+        public bool SetIsAttacked(bool isAttacked);
         public void SetPatrolRadius(float patrolRadius);
         public void SetPatrolTimer(float patrolTimer);
 

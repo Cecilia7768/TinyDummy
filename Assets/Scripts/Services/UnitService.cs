@@ -58,6 +58,7 @@ namespace Definition
                     break;
             }
             unitStatus.AgeFigure = 0f;
+            unitStatus.IsAttacked = false;
 
             //성장이벤트 발생위치 초기화
             SetGrowthEventPosi(Vector3.zero);
@@ -78,6 +79,7 @@ namespace Definition
         public float GetMaxHungry() => unitStatus.MaxHungry;
         public float GetMaxThirst() => unitStatus.MaxThirst;
         public float GetMaxAgeFigure() => unitStatus.MaxAgeFigure;
+        public bool GetIsAttacked() => unitStatus.IsAttacked;
 
         public float GetPatrolRadius() => unitStatus.PatrolRadius;
         public float GetPatrolTimer() => unitStatus.PatrolTimer;
@@ -127,7 +129,7 @@ namespace Definition
         public void SetMaxHungry(float hungry) => unitStatus.MaxHungry = hungry;
         public void SetMaxThirst(float thirst) => unitStatus.MaxThirst = thirst;
         public void SetMaxAgeFigure(float maxAgeFigure) => unitStatus.MaxAgeFigure = maxAgeFigure;
-
+        public bool SetIsAttacked(bool isAttacked) => unitStatus.IsAttacked = isAttacked;
 
         public void SetPatrolRadius(float patrolRadius) => unitStatus.PatrolRadius = patrolRadius;
         public void SetPatrolTimer(float patrolTimer) => unitStatus.PatrolTimer = patrolTimer;

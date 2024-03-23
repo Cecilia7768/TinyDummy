@@ -17,10 +17,10 @@ namespace Definition
         //시체 소멸 시간
         public const float BodyExtinctionTime = 3.5f;
         //산란시 우두머리일 확률
-        public const float ProbabilityBossEgg = 10f;
+        public const float ProbabilityBossEgg = 0f;
 
         //산란시 쌍생일 확률
-        public static float ProbabilityDoubleEgg = 20f;
+        public static float ProbabilityDoubleEgg = 100f;
 
         public static int MaleCount = 0;
         public static int FemaleCount = 0;
