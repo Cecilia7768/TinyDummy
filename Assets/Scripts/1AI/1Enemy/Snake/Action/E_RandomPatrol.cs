@@ -17,8 +17,6 @@ namespace Enemy.AI
         public override void OnStart()
         {
             agent = GetComponent<NavMeshAgent>();
-            //agent.isStopped = false;
-
             enemyService = this.transform.GetComponent<IEnemyService>();
 
             if (enemyService != null && !isInitSet)

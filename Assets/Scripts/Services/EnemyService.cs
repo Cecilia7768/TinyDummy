@@ -37,9 +37,6 @@ public class EnemyService : MonoBehaviour, IEnemyService
     public int GetNum() => enemyStatus.Num;
 
     public GameObject GetTarget() => enemyStatus.Target;
-    //public BoxCollider GetViewRange() => enemyStatus.ViewRange;
-    //public BoxCollider GetEatRange() => enemyStatus.EatRange;
-
     public float GetMoveSpeed() => enemyStatus.MoveSpeed;
     public float GetAttackPower() => enemyStatus.AttackPower;
     public float GetAttackSpeed() => enemyStatus.AttackSpeed;
@@ -57,9 +54,6 @@ public class EnemyService : MonoBehaviour, IEnemyService
     public void SetNum(int num) => enemyStatus.Num = num;
 
     public void SetTarget(GameObject target) => enemyStatus.Target = target;
-    //public void SetViewRange(BoxCollider viewRange) => enemyStatus.ViewRange = viewRange;
-    //public void SetEatRange(BoxCollider eatRange) => enemyStatus.ViewRange = eatRange;
-
     public void SetMoveSpeed(float speed) => enemyStatus.MoveSpeed = speed;
     public void SetAttackPower(float attackPower) => enemyStatus.AttackPower = attackPower;
     public void SetAttackSpeed(float attackSpeed) => enemyStatus.AttackSpeed = attackSpeed;

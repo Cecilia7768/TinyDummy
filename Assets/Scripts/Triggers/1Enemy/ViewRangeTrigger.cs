@@ -64,8 +64,6 @@ public class ViewRangeTrigger : MonoBehaviour
         // 오브젝트가 콜라이더 범위를 벗어난 경우 리스트에서 제거
         if (other.CompareTag("JJACK") && triggerJJACK.Contains(other.gameObject))
         {
-            if (other.gameObject == enemyService.GetTarget())
-                enemyService.SetTarget(FindClosestJJACK());
             triggerJJACK.Remove(other.gameObject);
         }
     }
