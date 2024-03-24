@@ -10,9 +10,9 @@ namespace Enemy.AI
         private IEnemyService enemyService;
 
         //위치가 변하지 않을 때 경로 재계산
-        private float lastPathCheckTime; 
-        private Vector3 lastPosition; 
-        private const float checkDuration = 1f; 
+        private float lastPathCheckTime;
+        private Vector3 lastPosition;
+        private const float checkDuration = 1f;
         private const float minDistanceChange = 1f;
 
         private Vector3 lastTargetPosition; // 타겟의 마지막 위치를 저장
@@ -20,7 +20,6 @@ namespace Enemy.AI
 
         //실시간으로 바라보기
         private Vector3 targetPosi;
-
         public override void OnAwake()
         {
             agent = GetComponent<NavMeshAgent>();
@@ -36,8 +35,6 @@ namespace Enemy.AI
             }
             else
             {
-                // Debug.LogError(enemyService.GetTarget().transform.position);
-
                 // 타겟의 위치가 1초간 동일한지 확인
                 if (Vector3.Distance(enemyService.GetTarget().transform.position, lastTargetPosition) < 0.01f)
                 {
@@ -70,13 +67,11 @@ namespace Enemy.AI
 
                 if (!enemyService.GetIsCanEat())
                 {
-                    //agent.isStopped = false;
                     agent.SetDestination(enemyService.GetTarget().transform.position);
                     return TaskStatus.Running;
                 }
                 else
                 {
-                    //agent.isStopped = true;
                     enemyService.GetTarget().gameObject.transform.parent.GetComponent<ILifeCycleService>().GetUnitService().SetIsAttacked(true);
                     Debug.LogError("접촉 //");
                     return TaskStatus.Success;

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Definition
 {
@@ -72,6 +71,9 @@ namespace Definition
         public float GetHappiness() => unitStatus.Happiness;
         public float GetAgeFigure() => unitStatus.AgeFigure;
 
+        public bool GetIsFoundEnemy() => unitStatus.IsFoundEnemy;
+        public GameObject GetEnemyObj() => unitStatus.EnemyObj;
+
         public GenderType GetGender() => unitStatus.Gender;
         public EggGradeType GetEggGrade() => unitStatus.EggGrade;
 
@@ -116,6 +118,9 @@ namespace Definition
             unitStatus.AgeFigure += setAge;
             unitStatus.AgeFigure = Mathf.Clamp(unitStatus.AgeFigure, 0, unitStatus.MaxAgeFigure);
         }
+
+        public void SetIsFoundEnemy(bool isFoundEnemy) => unitStatus.IsFoundEnemy = isFoundEnemy;
+        public void SetEnemyObj(GameObject enemyObj) => unitStatus.EnemyObj = enemyObj;
 
         public void SetEggGrade(EggGradeType eggGrade) => unitStatus.EggGrade = eggGrade;
 

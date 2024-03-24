@@ -15,6 +15,9 @@ namespace Definition
         public float GetHappiness();
         public float GetAgeFigure();
 
+        public bool GetIsFoundEnemy();
+        public GameObject GetEnemyObj();
+
         public GenderType GetGender();
         public EggGradeType GetEggGrade();
 
@@ -39,6 +42,9 @@ namespace Definition
         public void SetThirst(float thirst);
         public void SetHappiness(float happiness);
         public void SetAddAgeFigure(float setAge);
+
+        public void SetIsFoundEnemy(bool isFoundEnemy);
+        public void SetEnemyObj(GameObject enemyObj);
 
         public void SetEggGrade(EggGradeType eggGrade);
 

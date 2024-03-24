@@ -16,6 +16,11 @@ namespace Definition
         public float happiness;
         public float ageFigure; //나이 진행도
 
+        [Space(5)]
+        public bool isFoundEnemy; //적 발견
+        public GameObject enemyObj; //발견한 적 오브젝트
+
+        [Space(5)]
         public GenderType gender;
         public EggGradeType eggGrade;
 
@@ -45,6 +50,9 @@ namespace Definition
         public float Thirst { get { return thirst; } set { thirst = value; } }
         public float Happiness { get { return happiness; } set { happiness = value; } }
         public float AgeFigure { get { return ageFigure; } set { ageFigure = value; } }
+
+        public bool IsFoundEnemy { get { return isFoundEnemy; } set { isFoundEnemy = value; } }
+        public GameObject EnemyObj { get { return enemyObj; } set { enemyObj = value; } }
 
         public GenderType Gender { get { return gender; } set { gender = value; } }
         public EggGradeType EggGrade { get { return eggGrade; } set { eggGrade = value; } }
@@ -133,12 +141,6 @@ namespace Definition
         public GameObject target;
         public Vector3 targetPosi;
 
-        //[Space(3)]
-        //[Header("JJACK 발견 시야")]
-        //public BoxCollider viewRange;  
-        //[Header("JJACK 한입시작 범위")]
-        //public BoxCollider eatRange;
-
         [Space(10)]
         public float moveSpeed;
         public float attackPower;
@@ -159,9 +161,6 @@ namespace Definition
 
         public GameObject Target { get { return target; } set { target = value; } }
         public Vector3 TargetPosi { get { return targetPosi; } set { targetPosi = value; } }
-        //public BoxCollider ViewRange { get { return viewRange; } set { viewRange = value; } }
-        //public BoxCollider EatRange { get { return eatRange; } set { eatRange = value; } }
-               
         public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
         public float AttackPower { get { return attackPower; } set { attackPower = value; } }
         public float AttackSpeed { get { return attackSpeed; } set { attackSpeed = value; } }
