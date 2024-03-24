@@ -9,6 +9,15 @@ public class EatRangeTrigger : MonoBehaviour
     {
         enemyService = transform.parent.GetComponent<EnemyService>();
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == enemyService.GetTarget())
+        {
+            enemyService.SetIsCanEat(true);
+            Debug.LogError("∏‘¿ª∞≈¿”--");
+        }
+    }
     private void OnTriggerStay(Collider other)
     {
         if(other.gameObject == enemyService.GetTarget())

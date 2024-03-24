@@ -29,7 +29,7 @@ public class EnemyService : MonoBehaviour, IEnemyService
         enemyStatus.IsCanHunt = true;
 
         enemyStatus.PatrolRadius = 70f;
-        enemyStatus.PatrolTimer = 3f;
+        enemyStatus.PatrolTimer = 1f;
     }
 
     #region Interface
@@ -37,8 +37,8 @@ public class EnemyService : MonoBehaviour, IEnemyService
     public int GetNum() => enemyStatus.Num;
 
     public GameObject GetTarget() => enemyStatus.Target;
-    public BoxCollider GetViewRange() => enemyStatus.ViewRange;
-    public BoxCollider GetEatRange() => enemyStatus.EatRange;
+    //public BoxCollider GetViewRange() => enemyStatus.ViewRange;
+    //public BoxCollider GetEatRange() => enemyStatus.EatRange;
 
     public float GetMoveSpeed() => enemyStatus.MoveSpeed;
     public float GetAttackPower() => enemyStatus.AttackPower;
@@ -57,8 +57,8 @@ public class EnemyService : MonoBehaviour, IEnemyService
     public void SetNum(int num) => enemyStatus.Num = num;
 
     public void SetTarget(GameObject target) => enemyStatus.Target = target;
-    public void SetViewRange(BoxCollider viewRange) => enemyStatus.ViewRange = viewRange;
-    public void SetEatRange(BoxCollider eatRange) => enemyStatus.ViewRange = eatRange;
+    //public void SetViewRange(BoxCollider viewRange) => enemyStatus.ViewRange = viewRange;
+    //public void SetEatRange(BoxCollider eatRange) => enemyStatus.ViewRange = eatRange;
 
     public void SetMoveSpeed(float speed) => enemyStatus.MoveSpeed = speed;
     public void SetAttackPower(float attackPower) => enemyStatus.AttackPower = attackPower;
@@ -77,6 +77,8 @@ public class EnemyService : MonoBehaviour, IEnemyService
             var data = enemyStatus.Target.transform.parent.GetComponent<ILifeCycleService>();
             data.Dead(false); //사냥으로 인한 죽음
             enemyStatus.HuntingProgress++;
+            enemyStatus.Target = null;
+            enemyStatus.IsCanHunt = false;
         }
     }
     public void SetMaxHuntingProgress(int maxHuntingProgress) => enemyStatus.MaxHuntingProgress = maxHuntingProgress;

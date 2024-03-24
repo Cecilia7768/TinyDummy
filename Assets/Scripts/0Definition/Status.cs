@@ -131,12 +131,13 @@ namespace Definition
         public int num;
 
         public GameObject target;
+        public Vector3 targetPosi;
 
-        [Space(3)]
-        [Header("JJACK 발견 시야")]
-        public BoxCollider viewRange;  
-        [Header("JJACK 한입시작 범위")]
-        public BoxCollider eatRange;
+        //[Space(3)]
+        //[Header("JJACK 발견 시야")]
+        //public BoxCollider viewRange;  
+        //[Header("JJACK 한입시작 범위")]
+        //public BoxCollider eatRange;
 
         [Space(10)]
         public float moveSpeed;
@@ -157,8 +158,9 @@ namespace Definition
         public int Num { get { return num; } set { num = value; } }
 
         public GameObject Target { get { return target; } set { target = value; } }
-        public BoxCollider ViewRange { get { return viewRange; } set { viewRange = value; } }
-        public BoxCollider EatRange { get { return eatRange; } set { eatRange = value; } }
+        public Vector3 TargetPosi { get { return targetPosi; } set { targetPosi = value; } }
+        //public BoxCollider ViewRange { get { return viewRange; } set { viewRange = value; } }
+        //public BoxCollider EatRange { get { return eatRange; } set { eatRange = value; } }
                
         public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
         public float AttackPower { get { return attackPower; } set { attackPower = value; } }

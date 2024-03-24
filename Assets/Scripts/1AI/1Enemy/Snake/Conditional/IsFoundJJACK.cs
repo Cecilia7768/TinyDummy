@@ -17,7 +17,6 @@ namespace Enemy.AI
         {
             if (enemyService != null && enemyService.GetTarget() != null && enemyService.GetIsCanHunt())
             {
-                enemyService.SetIsCanHunt(false);
                 return TaskStatus.Success;
             }
             return TaskStatus.Failure;

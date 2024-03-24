@@ -6,8 +6,9 @@ public interface IEnemyService
     public int GetNum();
 
     public GameObject GetTarget();
-    public BoxCollider GetViewRange();
-    public BoxCollider GetEatRange();
+  //  public Vector3 GetTargetPosi();
+    //public BoxCollider GetViewRange();
+    //public BoxCollider GetEatRange();
 
     public float GetMoveSpeed();
     public float GetAttackPower();
@@ -26,8 +27,9 @@ public interface IEnemyService
     public void SetNum(int num);
 
     public void SetTarget(GameObject target);
-    public void SetViewRange(BoxCollider target);
-    public void SetEatRange(BoxCollider eatRange);
+  //  public void SetTargetPosi(Vector3 posi);
+    //public void SetViewRange(BoxCollider target);
+    //public void SetEatRange(BoxCollider eatRange);
 
     public void SetMoveSpeed(float speed);
     public void SetAttackPower(float attackPower);

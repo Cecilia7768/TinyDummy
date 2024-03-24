@@ -46,6 +46,9 @@ public class ViewRangeTrigger : MonoBehaviour
                 }
             }
         }
+
+        //잡을 대상이 있으면
+        enemyService.SetIsCanHunt(closestJJACK != null);
         return closestJJACK;
     }
 
@@ -61,6 +64,8 @@ public class ViewRangeTrigger : MonoBehaviour
         // 오브젝트가 콜라이더 범위를 벗어난 경우 리스트에서 제거
         if (other.CompareTag("JJACK") && triggerJJACK.Contains(other.gameObject))
         {
+            if (other.gameObject == enemyService.GetTarget())
+                enemyService.SetTarget(FindClosestJJACK());
             triggerJJACK.Remove(other.gameObject);
         }
     }
