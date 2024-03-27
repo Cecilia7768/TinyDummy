@@ -7,19 +7,25 @@ namespace AI
 {
     public class RunAway : Action
     {
-        private IUnitService unitService;
         private NavMeshAgent agent;
+        private IUnitService unitService;
 
-        private float speed = 5f; // 초기 속도
-        private float deceleration = 1f; // 초당 감속량
-        private float totalTime = 0f; // 총 경과 시간
-        private Vector3 direction; // 이동 방향
+        public float initialSpeed = 5f; // 도망칠 때의 초기 속도
+        public float speedDeceleration = 1f; // 속도 감소량
+        private float timeSinceStartRunning = 0f; // 도망치기 시작한 후 경과 시간
 
         public override void OnStart()
         {
+            agent = GetComponent<NavMeshAgent>();
             unitService = this.transform.parent.GetComponent<IUnitService>();
-            agent = this.GetComponent<NavMeshAgent>();
-            direction = (transform.position - unitService.GetEnemyObj().transform.position).normalized;
+
+            if (unitService.GetEnemyObj() != null)
+            {
+                Vector3 runDirection = (transform.position - unitService.GetEnemyObj().transform.position).normalized;
+                agent.speed = initialSpeed;
+                agent.destination = transform.position + runDirection * agent.speed;
+                timeSinceStartRunning = 0f;
+            }
         }
 
         public override TaskStatus OnUpdate()
@@ -28,32 +34,27 @@ namespace AI
             {
                 return TaskStatus.Success;
             }
-            else
+
+            timeSinceStartRunning += Time.deltaTime;
+
+            // 1초 이후부터 속도 감소 시작
+            if (timeSinceStartRunning > 1f)
             {
-                // 대상의 반대방향을 바라보도록 설정
-                Vector3 lookDirection = unitService.GetEnemyObj().transform.position - transform.position;
-                Quaternion lookRotation = Quaternion.LookRotation(-lookDirection);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * speed);
-
-                agent.isStopped = true;
-
-                totalTime += Time.deltaTime;
-
-                if (totalTime > 1f && totalTime <= 3f)
-                {
-                    speed -= deceleration * Time.deltaTime;
-                }
-
-                if (speed < 3f)
-                {
-                    speed = 3f;
-                }
-
-                transform.position += direction * speed * Time.deltaTime;
-
-                agent.isStopped = false;
-                return TaskStatus.Running;
+                agent.speed = Mathf.Max(3f, agent.speed - speedDeceleration * Time.deltaTime);
             }
+
+            if (Vector3.Distance(transform.position, unitService.GetEnemyObj().transform.position) > 10f)
+            {
+                // 적과의 거리가 10 이상이면 성공 반환
+                return TaskStatus.Success;
+            }
+
+            // 대상의 반대방향을 바라보기
+            Vector3 enemyDirection = unitService.GetEnemyObj().transform.position - transform.position;
+            Vector3 newDirection = Vector3.RotateTowards(transform.forward, -enemyDirection, float.MaxValue, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDirection);
+
+            return TaskStatus.Running;
         }
     }
 }

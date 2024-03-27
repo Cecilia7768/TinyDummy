@@ -25,6 +25,13 @@ public class FoodGenerator : MonoBehaviour
 
     private bool isFirstActivation = true;
 
+    /// 음식 재생 주기
+    private float minReloadTime = 5f;
+    private float maxReloadTime = 15f;
+    [SerializeField]
+    [Header("테스트 확인용. 이 프리팹에 적용된 음식 재생 주기")]
+    private float reloadTime;
+
     private void Awake()
     {
         InitializeFoodPool();
@@ -32,6 +39,9 @@ public class FoodGenerator : MonoBehaviour
         StartCoroutine(SpawnFoodRoutine());
     }
 
+    /// <summary>
+    /// 음식 풀링 생성
+    /// </summary>
     private void InitializeFoodPool()
     {
         foreach (var food in foodList)
@@ -60,11 +70,17 @@ public class FoodGenerator : MonoBehaviour
         isFirstActivation = false;
     }
 
+    /// <summary>
+    /// n초마다 음식 자동 생성.
+    /// 나중에 음식 나무 종류별로 생성 주기 맞추면 좋을것같음.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator SpawnFoodRoutine()
     {
+        reloadTime = Random.Range(minReloadTime, maxReloadTime);
         while (true)
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(reloadTime);
 
             if (!isFirstActivation && foodParent.childCount < maxFoodCount)
             {
@@ -73,6 +89,29 @@ public class FoodGenerator : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 클릭시 먹이 풀로 새로 생성.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator OnClickSpawnALLFood() 
+    {
+        for (int i = 0; i < foodParent.childCount; i++)
+        {
+            yield return new WaitForSeconds(.5f);
+            if (!isFirstActivation && foodParent.childCount < maxFoodCount)
+            {
+                if (!foodParent.GetChild(i).gameObject.activeSelf)
+                {
+                    foodParent.GetChild(i).gameObject.SetActive(true);
+                    foodParent.GetChild(i).gameObject.transform.position = RandomPositionOnPlane();
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 음식 생성
+    /// </summary>
     private void SpawnFood()
     {
         if (foodPool.Count == 0) return;
@@ -82,6 +121,10 @@ public class FoodGenerator : MonoBehaviour
         foodToSpawn.SetActive(true);
     }
 
+    /// <summary>
+    /// 음식 생성 랜덤 포인트
+    /// </summary>
+    /// <returns></returns>
     private Vector3 RandomPositionOnPlane()
     {
         Renderer planeRenderer = plane.GetComponent<Renderer>();
@@ -92,5 +135,14 @@ public class FoodGenerator : MonoBehaviour
         Vector3 position = plane.transform.position + new Vector3(x, 1, z);
 
         return position;
+    }
+
+    /// <summary>
+    /// 오브젝트 터치 - 음식털기
+    /// </summary>
+    private void OnMouseDown()
+    {
+        Debug.LogError(this.gameObject.name);
+        StartCoroutine(OnClickSpawnALLFood());
     }
 }

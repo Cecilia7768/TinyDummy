@@ -38,9 +38,10 @@ namespace Enemy.AI
                 // 타겟의 위치가 1초간 동일한지 확인
                 if (Vector3.Distance(enemyService.GetTarget().transform.position, lastTargetPosition) < 0.01f)
                 {
-                    if (Time.time - lastTargetPositionUpdateTime >= 1f)
+                    if (Time.time - lastTargetPositionUpdateTime >= 2f)
                     {
                         enemyService.SetTarget(enemyService.GetTarget());
+
                         lastTargetPositionUpdateTime = Time.time; // 시간 업데이트
                     }
                 }
@@ -67,13 +68,13 @@ namespace Enemy.AI
                 if (!enemyService.GetIsCanEat())
                 {
                     agent.SetDestination(enemyService.GetTarget().transform.position);
-                    return TaskStatus.Running;
                 }
                 else
                 {
                     enemyService.GetTarget().gameObject.transform.parent.GetComponent<ILifeCycleService>().GetUnitService().SetIsAttacked(true);
                     return TaskStatus.Success;
                 }
+                return TaskStatus.Running;
             }
         }
     }

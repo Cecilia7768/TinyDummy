@@ -12,14 +12,14 @@ public class EatRangeTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == enemyService.GetTarget())
+        if (other.transform.parent.gameObject == enemyService.GetTarget())
         {
             enemyService.SetIsCanEat(true);
         }
     }
     private void OnTriggerStay(Collider other)
     {
-        if(other.gameObject == enemyService.GetTarget())
+        if(other.transform.parent.gameObject == enemyService.GetTarget())
         {
             enemyService.SetIsCanEat(true);
         }

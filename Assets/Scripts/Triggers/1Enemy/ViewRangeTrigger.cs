@@ -8,6 +8,7 @@ public class ViewRangeTrigger : MonoBehaviour
 
     //범위 안에 들어온 JJACK List
     private List<GameObject> triggerJJACK = new List<GameObject>();
+    public static bool jjackReFind = false; 
 
     private void Start()
     {
@@ -54,17 +55,17 @@ public class ViewRangeTrigger : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("JJACK") && !triggerJJACK.Contains(other.gameObject))
+        if (other.transform.parent.CompareTag("JJACK") && !triggerJJACK.Contains(other.transform.parent.gameObject))
         {
-            triggerJJACK.Add(other.gameObject);
+            triggerJJACK.Add(other.transform.parent.gameObject);
         }
     }
     private void OnTriggerExit(Collider other)
     {
         // 오브젝트가 콜라이더 범위를 벗어난 경우 리스트에서 제거
-        if (other.CompareTag("JJACK") && triggerJJACK.Contains(other.gameObject))
+        if (other.transform.parent.CompareTag("JJACK") && triggerJJACK.Contains(other.transform.parent.gameObject))
         {
-            triggerJJACK.Remove(other.gameObject);
+            triggerJJACK.Remove(other.transform.parent.gameObject);
         }
     }
 }

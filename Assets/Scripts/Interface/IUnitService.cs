@@ -17,6 +17,7 @@ namespace Definition
 
         public bool GetIsFoundEnemy();
         public GameObject GetEnemyObj();
+        public float GetRunAwaySpeed();
 
         public GenderType GetGender();
         public EggGradeType GetEggGrade();
@@ -45,7 +46,7 @@ namespace Definition
 
         public void SetIsFoundEnemy(bool isFoundEnemy);
         public void SetEnemyObj(GameObject enemyObj);
-
+        public void SetRunAwaySpeed(float runAwaySpeed);
         public void SetEggGrade(EggGradeType eggGrade);
 
         /// <summary>

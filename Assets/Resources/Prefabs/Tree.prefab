@@ -428,8 +428,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4426078172988701505}
-  - component: {fileID: 529259628697363099}
   - component: {fileID: 8288121134647690993}
+  - component: {fileID: 529259628697363099}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -458,6 +458,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8288121134647690993
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4426078172988701506}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.90508, y: 13.922038, z: 6.4064393}
+  m_Center: {x: -0.28530407, y: 7.286019, z: -0.27574658}
 --- !u!114 &529259628697363099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,20 +487,7 @@ MonoBehaviour:
   foodList:
   - {fileID: 789392186246386413, guid: 2c6b0a6f711265b4bb54d7a27f02ab15, type: 3}
   foodParent: {fileID: 7959509379249638651}
-  maxFoodCount: 5
---- !u!65 &8288121134647690993
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4426078172988701506}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 6.90508, y: 13.922038, z: 6.4064393}
-  m_Center: {x: -0.28530407, y: 7.286019, z: -0.27574658}
+  reloadTime: 0
 --- !u!1 &4426078173229681722
 GameObject:
   m_ObjectHideFlags: 0

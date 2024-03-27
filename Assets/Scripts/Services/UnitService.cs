@@ -40,16 +40,19 @@ namespace Definition
                     JjackStandard.EggCount++;
                     break;
                 case AgeType.Child:
+                    unitStatus.RunAwaySpeed = 5f;
                     JjackStandard.ChildCount++;
                     JjackStandard.EggCount--;
                     break;
                 case AgeType.Adult:
+                    unitStatus.RunAwaySpeed = 10f;
                     if (unitStatus.Gender == GenderType.Male)
                         JjackStandard.MaleAdultCount++;
                     JjackStandard.AdultCount++;
                     JjackStandard.ChildCount--;
                     break;
                 case AgeType.Old:
+                    unitStatus.RunAwaySpeed = 5f;
                     if (unitStatus.Gender == GenderType.Male)
                         JjackStandard.MaleAdultCount--;
                     JjackStandard.OldCount++;
@@ -73,6 +76,7 @@ namespace Definition
 
         public bool GetIsFoundEnemy() => unitStatus.IsFoundEnemy;
         public GameObject GetEnemyObj() => unitStatus.EnemyObj;
+        public float GetRunAwaySpeed() => unitStatus.RunAwaySpeed;
 
         public GenderType GetGender() => unitStatus.Gender;
         public EggGradeType GetEggGrade() => unitStatus.EggGrade;
@@ -121,6 +125,7 @@ namespace Definition
 
         public void SetIsFoundEnemy(bool isFoundEnemy) => unitStatus.IsFoundEnemy = isFoundEnemy;
         public void SetEnemyObj(GameObject enemyObj) => unitStatus.EnemyObj = enemyObj;
+        public void SetRunAwaySpeed(float runAwaySpeed) => unitStatus.RunAwaySpeed = runAwaySpeed;
 
         public void SetEggGrade(EggGradeType eggGrade) => unitStatus.EggGrade = eggGrade;
 

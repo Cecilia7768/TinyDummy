@@ -1,6 +1,5 @@
 using Definition;
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,7 +10,7 @@ public class LifeCycle : MonoBehaviour
     private float getHungry; //초당 배고파지는 수치
     [SerializeField]
     private float getThirst; //초당 목말라지는 수치
-    [Header("틱당 행복도 증가 수치")]
+    [Header("틱당 행복도 증/감소 수치")]
     [SerializeField]
     private float getHappiness;
 
@@ -22,7 +21,7 @@ public class LifeCycle : MonoBehaviour
     private void Awake()
     {
         iLifeCycleService = this.transform.parent.GetComponent<ILifeCycleService>();
-    
+
         StartLifeCycleSubscribe(iLifeCycleService.GetLifeCycleService());
     }
 
@@ -56,8 +55,8 @@ public class LifeCycle : MonoBehaviour
         else
             agent.speed = 3f * num;
         ///감소 수치 설정
-        getHungry = UnityEngine.Random.Range(0.1f, 1f);
-        getThirst = UnityEngine.Random.Range(0.5f, 1.2f);
+        getHungry = UnityEngine.Random.Range(0.1f, 3f);
+        getThirst = UnityEngine.Random.Range(0.5f, 3.2f);
         getHappiness = 5f;
 
         //전체 데이터 초기화
@@ -139,14 +138,26 @@ public class LifeCycle : MonoBehaviour
     /// <returns></returns>
     IEnumerator SetHealthCondition()
     {
+        float hungry;
+        float thirst;
+        float health;
+        float happiness;
         while (true)
         {
+            hungry = iLifeCycleService.GetUnitService().GetHungry();
+            thirst = iLifeCycleService.GetUnitService().GetThirst();
+            health = iLifeCycleService.GetUnitService().GetHealth();
+            happiness = iLifeCycleService.GetUnitService().GetHappiness();
+
             if (iLifeCycleService.GetUnitService() == null) yield return null;
-            if (iLifeCycleService.GetUnitService().GetHungry() >= 80 && iLifeCycleService.GetUnitService().GetThirst() >= 80)
+            if (hungry >= 80 && thirst >= 80)
                 iLifeCycleService.GetUnitService().SetHealth(1);
-            else if (iLifeCycleService.GetUnitService().GetHungry() <= 0 || iLifeCycleService.GetUnitService().GetThirst() <= 0)
+            else if (hungry <= 0 || thirst <= 0)
                 iLifeCycleService.GetUnitService().SetHealth(-1);
 
+            //체력 0이면 사망
+            if (iLifeCycleService.GetUnitService().GetHealth() <= 0)
+                iLifeCycleService.Dead(false);
             yield return new WaitForSeconds(1f);
         }
     }
@@ -164,6 +175,8 @@ public class LifeCycle : MonoBehaviour
             {
                 iLifeCycleService.GetUnitService().SetHappiness(getHappiness);
             }
+            else if (iLifeCycleService.GetUnitService().GetHealth() <= 0)
+                iLifeCycleService.GetUnitService().SetHappiness(-getHappiness);
 
             yield return new WaitForSeconds(2f);
         }

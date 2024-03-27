@@ -26,7 +26,7 @@ public class ShapeCycle : MonoBehaviour
     /// <returns></returns>
     private void ActiveAgePrefab(AgeType beforeAge = AgeType.None)
     {
-        if (iLifeCycleService.GetStatePrefabList().Count == 0) retu=n;
+        if (iLifeCycleService.GetStatePrefabList().Count == 0) return;
 
         for (int i = 0; i < iLifeCycleService.GetStatePrefabList().Count; i++)
         {

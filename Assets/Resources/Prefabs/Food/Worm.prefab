@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 1409825931084598280}
   - component: {fileID: 1409825931084598281}
   - component: {fileID: 1409825931084598282}
+  - component: {fileID: 133808131172070722}
   m_Layer: 0
   m_Name: Worm
-  m_TagString: Untagged
+  m_TagString: Food
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,3 +98,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &133808131172070722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409825931084598283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d016c36ecaef4d848b62b0e7cdd7afe6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectStatus:
+    health: 20
+    hungry: 50
+    thirst: 20
+    foodType: 0

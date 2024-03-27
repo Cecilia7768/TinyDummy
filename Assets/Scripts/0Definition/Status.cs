@@ -16,9 +16,11 @@ namespace Definition
         public float happiness;
         public float ageFigure; //나이 진행도
 
+        ///////// 천적 관련 /////////
         [Space(5)]
         public bool isFoundEnemy; //적 발견
         public GameObject enemyObj; //발견한 적 오브젝트
+        public float runAwaySpeed;
 
         [Space(5)]
         public GenderType gender;
@@ -53,6 +55,7 @@ namespace Definition
 
         public bool IsFoundEnemy { get { return isFoundEnemy; } set { isFoundEnemy = value; } }
         public GameObject EnemyObj { get { return enemyObj; } set { enemyObj = value; } }
+        public float RunAwaySpeed { get { return runAwaySpeed; } set { runAwaySpeed = value; } }
 
         public GenderType Gender { get { return gender; } set { gender = value; } }
         public EggGradeType EggGrade { get { return eggGrade; } set { eggGrade = value; } }
