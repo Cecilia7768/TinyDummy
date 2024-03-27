@@ -28,7 +28,7 @@ public class LifeCycle : MonoBehaviour
 
     public void StartLifeCycleSubscribe(LifeCycleService publisher)
     {
-        publisher.startLifeCycle += () =>
+        publisher.startLifeCycle += (AgeType _) =>
         {
             agent = GetComponent<NavMeshAgent>();
             if (agent != null && iLifeCycleService.GetCurrAge().ToString() != agent.gameObject.name) return;

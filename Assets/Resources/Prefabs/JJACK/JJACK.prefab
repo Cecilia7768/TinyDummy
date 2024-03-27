@@ -86,6 +86,8 @@ MonoBehaviour:
     thirst: 100
     happiness: 50
     ageFigure: 1
+    isFoundEnemy: 0
+    enemyObj: {fileID: 0}
     gender: 0
     eggGrade: 0
     maxHealth: 100
@@ -93,6 +95,7 @@ MonoBehaviour:
     maxThirst: 100
     maxHappiness: 100
     maxAgeFigure: 50
+    isAttacked: 0
     patrolRadius: 70
     patrolTimer: 2
     growthEventPosi: {x: 0, y: 0, z: 0}
@@ -103,6 +106,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3953287620414656425}
     m_Modifications:
+    - target: {fileID: 2994663004504888780, guid: f3294b15e6be12c438bf008e4be7dee3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9063079
+      objectReference: {fileID: 0}
+    - target: {fileID: 2994663004504888780, guid: f3294b15e6be12c438bf008e4be7dee3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.42261827
+      objectReference: {fileID: 0}
+    - target: {fileID: 2994663004504888780, guid: f3294b15e6be12c438bf008e4be7dee3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 4264396782125541417, guid: f3294b15e6be12c438bf008e4be7dee3, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -337,7 +352,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2848746282997823446, guid: 587a0cba737a5c648b8e322fb592412a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2848746283400707638, guid: 587a0cba737a5c648b8e322fb592412a, type: 3}
       propertyPath: m_RootOrder
