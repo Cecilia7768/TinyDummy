@@ -31,8 +31,7 @@ public class EnemyRangeTrigger : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.name == "BeFoundRange")
-        {
-            Debug.LogError("µµ¸Á¿Ï·á");
+        {   
             unitService.SetIsFoundEnemy(false);
             unitService.SetEnemyObj(null);
         }

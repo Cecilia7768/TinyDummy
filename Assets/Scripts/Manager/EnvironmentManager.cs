@@ -88,9 +88,10 @@ public class EnvironmentManager : MonoBehaviour
 
             jjackTmpObj.transform.GetChild(0).localPosition = SetFirstCreateRandomPosition();
 
-            jjackTmpObj.GetComponent<UnitService>().SetNum(i);
+            jjackTmpObj.GetComponent<UnitService>().SetNum(JjackStandard.UnitNum);
             unitsDic.Add(i, jjackTmpObj);
             JjackStandard.TotalCount++;
+            JjackStandard.UnitNum++;
         }
     }
 
@@ -148,9 +149,10 @@ public class EnvironmentManager : MonoBehaviour
         GameObject egg = Instantiate(unitPrefab, unitParent);
         egg.transform.GetChild(0).localPosition = trans;
 
-        egg.GetComponent<UnitService>().SetNum(JjackStandard.TotalCount);
-        unitsDic.Add(JjackStandard.TotalCount, egg);
+        egg.GetComponent<UnitService>().SetNum(JjackStandard.UnitNum);
+        unitsDic.Add(JjackStandard.UnitNum, egg);
         JjackStandard.TotalCount++;
+        JjackStandard.UnitNum++;
 
         var unitService = egg.GetComponent<UnitService>();
 

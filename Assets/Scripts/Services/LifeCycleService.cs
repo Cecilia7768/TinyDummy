@@ -7,7 +7,7 @@ public class LifeCycleService : MonoBehaviour, ILifeCycleService
 {
     public LifeCycleStatus lifeCycleStatus;
 
-    public delegate void EventHandler();
+    public delegate void EventHandler(AgeType beforeAge = AgeType.None);
     //성장할때마다 발생되는 이벤트
     public event EventHandler setGrowthEvent;
     //성장할때 라이프사이클 시작
@@ -60,6 +60,7 @@ public class LifeCycleService : MonoBehaviour, ILifeCycleService
     /// <returns></returns>
     public void Dead(bool isOld = true)
     {
+        AgeType beforeAge = lifeCycleStatus.CurrAge;
         if (isOld)
         {
             lifeCycleStatus.CurrAge++;
@@ -67,7 +68,7 @@ public class LifeCycleService : MonoBehaviour, ILifeCycleService
         }
         else //사냥당해서 죽은거면
         {
-            switch(lifeCycleStatus.CurrAge)
+            switch (lifeCycleStatus.CurrAge)
             {
                 case AgeType.Egg:
                     JjackStandard.EggCount--;
@@ -85,7 +86,8 @@ public class LifeCycleService : MonoBehaviour, ILifeCycleService
             lifeCycleStatus.unitService.SetGrowthEventPosi(lifeCycleStatus.statePrefabList[(int)lifeCycleStatus.CurrAge].transform.position);
             lifeCycleStatus.CurrAge = AgeType.Dead;
         }
-        setGrowthEvent?.Invoke();
+        setGrowthEvent?.Invoke(beforeAge);
+
         JjackStandard.DeadCount++;
 
         if (lifeCycleStatus.unitService.GetGender() == GenderType.Male)
@@ -96,6 +98,7 @@ public class LifeCycleService : MonoBehaviour, ILifeCycleService
         if (lifeCycleStatus.UnitService.GetEggGrade() == EggGradeType.Special)
             JjackStandard.BossCount--;
 
+        JjackStandard.TotalCount--;
         StartCoroutine(CorDead());
     }
 

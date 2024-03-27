@@ -19,6 +19,8 @@ namespace Definition
         //산란시 우두머리일 확률
         public const float ProbabilityBossEgg = 0f;
 
+        //유닛 고유 번호
+        public static int UnitNum = 0;
         //산란시 쌍생일 확률
         public static float ProbabilityDoubleEgg = 100f;
 

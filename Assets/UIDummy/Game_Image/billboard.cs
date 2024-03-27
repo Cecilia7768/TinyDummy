@@ -7,6 +7,8 @@ public class billboard : MonoBehaviour
 
     void Start()
     {
+        if(m_MainCamera == null)
+            m_MainCamera = Camera.main;
         m_OriginalRotation = transform.rotation;
     }
 

@@ -40,7 +40,6 @@ namespace Enemy.AI
                 {
                     if (Time.time - lastTargetPositionUpdateTime >= 1f)
                     {
-                        Debug.LogError("타겟의 위치가 1초간 동일_ 위치조정");
                         enemyService.SetTarget(enemyService.GetTarget());
                         lastTargetPositionUpdateTime = Time.time; // 시간 업데이트
                     }
@@ -73,7 +72,6 @@ namespace Enemy.AI
                 else
                 {
                     enemyService.GetTarget().gameObject.transform.parent.GetComponent<ILifeCycleService>().GetUnitService().SetIsAttacked(true);
-                    Debug.LogError("접촉 //");
                     return TaskStatus.Success;
                 }
             }

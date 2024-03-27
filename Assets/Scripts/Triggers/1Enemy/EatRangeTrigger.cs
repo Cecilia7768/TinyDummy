@@ -15,7 +15,6 @@ public class EatRangeTrigger : MonoBehaviour
         if (other.gameObject == enemyService.GetTarget())
         {
             enemyService.SetIsCanEat(true);
-            Debug.LogError("∏‘¿ª∞≈¿”--");
         }
     }
     private void OnTriggerStay(Collider other)
@@ -23,7 +22,6 @@ public class EatRangeTrigger : MonoBehaviour
         if(other.gameObject == enemyService.GetTarget())
         {
             enemyService.SetIsCanEat(true);
-            Debug.LogError("∏‘¿ª∞≈¿”--");
         }
     }
 }
