@@ -30,7 +30,7 @@ namespace AI
             float distanceToTarget = Vector3.Distance(transform.position, CanSeeObject.targetObject.Value.transform.position);
 
             // 목적지에 도착했을 경우
-            if (distanceToTarget <= 15f)
+            if (distanceToTarget <= 17f)
             {
                 agent.isStopped = true;
                 return TaskStatus.Success;

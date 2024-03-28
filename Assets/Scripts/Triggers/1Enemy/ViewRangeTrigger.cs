@@ -8,8 +8,10 @@ public class ViewRangeTrigger : MonoBehaviour
 
     //범위 안에 들어온 JJACK List
     private List<GameObject> triggerJJACK = new List<GameObject>();
-    public static bool jjackReFind = false; 
+    public static bool jjackReFind = false;
 
+    //타겟 재설정
+    public static bool resetTarget = false;
     private void Start()
     {
         enemyService = transform.parent.GetComponent<EnemyService>();
@@ -23,7 +25,40 @@ public class ViewRangeTrigger : MonoBehaviour
         }
         else if (enemyService != null)
             enemyService.SetTarget(FindClosestJJACK());
+
+        if(resetTarget)
+        {
+            resetTarget = false;
+            enemyService.SetTarget(ResetTarget());
+            Debug.LogError("타겟 변경 완료");
+        }
     }
+
+    private GameObject ResetTarget()
+    {
+        List<GameObject> allJJACKs = new List<GameObject>(triggerJJACK); 
+        Vector3 currentPosition = transform.position;
+        allJJACKs.Sort((a, b) =>
+        {
+            if (a == null || b == null) return 0;
+            float distanceA = Vector3.Distance(a.transform.position, currentPosition);
+            float distanceB = Vector3.Distance(b.transform.position, currentPosition);
+            return distanceA.CompareTo(distanceB);
+        });
+
+        if (allJJACKs.Count > 1)
+        {
+            GameObject secondClosestJJACK = allJJACKs[1]; 
+            enemyService.SetIsCanHunt(secondClosestJJACK != null);
+            return secondClosestJJACK;
+        }
+        else
+        {
+            enemyService.SetIsCanHunt(false);
+            return null;
+        }
+    }
+
 
     /// <summary>
     /// 범위 내 가장 가까운 JJACK

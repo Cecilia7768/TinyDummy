@@ -88,6 +88,7 @@ MonoBehaviour:
     ageFigure: 1
     isFoundEnemy: 0
     enemyObj: {fileID: 0}
+    runAwaySpeed: 0
     gender: 0
     eggGrade: 0
     maxHealth: 100
@@ -352,7 +353,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2848746282997823446, guid: 587a0cba737a5c648b8e322fb592412a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2848746283400707638, guid: 587a0cba737a5c648b8e322fb592412a, type: 3}
       propertyPath: m_RootOrder

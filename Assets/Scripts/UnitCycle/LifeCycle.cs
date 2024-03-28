@@ -56,7 +56,7 @@ public class LifeCycle : MonoBehaviour
             agent.speed = 3f * num;
         ///감소 수치 설정
         getHungry = UnityEngine.Random.Range(0.1f, 3f);
-        getThirst = UnityEngine.Random.Range(0.5f, 3.2f);
+        getThirst = UnityEngine.Random.Range(0.5f, 2f);
         getHappiness = 5f;
 
         //전체 데이터 초기화

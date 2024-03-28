@@ -22,7 +22,13 @@ namespace AI
             {
                 if (CanSeeObject.targetObject != null)
                 {
-                    var obj = CanSeeObject.targetObject.Value.GetComponent<ObjectService>();
+                    GameObject tartget;
+                    if (CanSeeObject.targetObject.Value.tag == "Food")
+                        tartget = CanSeeObject.targetObject.Value;
+                    else
+                        tartget = CanSeeObject.targetObject.Value.transform.parent.gameObject;
+
+                    var obj = tartget.GetComponent<ObjectService>();
                     if (obj != null)
                     {
                         ActionByObjectType(obj);

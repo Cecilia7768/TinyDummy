@@ -9,8 +9,8 @@ namespace AI
     {
         private NavMeshAgent agent;
         private IUnitService unitService;
+        private ILifeCycleService lifeCycleService;
 
-        public float initialSpeed = 5f; // 도망칠 때의 초기 속도
         public float speedDeceleration = 1f; // 속도 감소량
         private float timeSinceStartRunning = 0f; // 도망치기 시작한 후 경과 시간
 
@@ -18,11 +18,12 @@ namespace AI
         {
             agent = GetComponent<NavMeshAgent>();
             unitService = this.transform.parent.GetComponent<IUnitService>();
+            lifeCycleService = this.transform.parent.GetComponent<ILifeCycleService>();
 
             if (unitService.GetEnemyObj() != null)
             {
                 Vector3 runDirection = (transform.position - unitService.GetEnemyObj().transform.position).normalized;
-                agent.speed = initialSpeed;
+                SetRunAwaySpeed();
                 agent.destination = transform.position + runDirection * agent.speed;
                 timeSinceStartRunning = 0f;
             }
@@ -55,6 +56,25 @@ namespace AI
             transform.rotation = Quaternion.LookRotation(newDirection);
 
             return TaskStatus.Running;
+        }
+
+        /// <summary>
+        /// 연령별 agent 속도 설정
+        /// </summary>
+        private void SetRunAwaySpeed()
+        {
+            switch(lifeCycleService.GetCurrAge())
+            {
+                case AgeType.Child:
+                    agent.speed = 4f;
+                    break;
+                case AgeType.Adult:
+                    agent.speed = 7f;
+                    break;
+                case AgeType.Old:
+                    agent.speed = 3f;
+                    break;
+            }
         }
     }
 }

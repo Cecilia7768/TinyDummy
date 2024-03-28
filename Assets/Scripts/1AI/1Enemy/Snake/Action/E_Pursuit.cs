@@ -29,49 +29,52 @@ namespace Enemy.AI
 
         public override TaskStatus OnUpdate()
         {
-            if (enemyService.GetTarget() == null)
+            GameObject target = enemyService.GetTarget();
+
+            if (target == null)
             {
                 return TaskStatus.Failure;
             }
             else
             {
-                // 타겟의 위치가 1초간 동일한지 확인
-                if (Vector3.Distance(enemyService.GetTarget().transform.position, lastTargetPosition) < 0.01f)
-                {
-                    if (Time.time - lastTargetPositionUpdateTime >= 2f)
-                    {
-                        enemyService.SetTarget(enemyService.GetTarget());
+                float currentDistance = Vector3.Distance(target.transform.position, lastTargetPosition);
 
-                        lastTargetPositionUpdateTime = Time.time; // 시간 업데이트
-                    }
-                }
-                else
+                // 타겟의 위치가 실제로 변경되었는지 확인
+                if (currentDistance >= 0.1f)
                 {
-                    lastTargetPosition = enemyService.GetTarget().transform.position;
-                    lastTargetPositionUpdateTime = Time.time; // 위치 및 시간 업데이트
+                    // 타겟의 위치가 변경되었다면, 시간과 위치 업데이트
+                    lastTargetPositionUpdateTime = Time.time;
+                    lastTargetPosition = target.transform.position;
+                }
+                else if (Time.time - lastTargetPositionUpdateTime >= 2f)
+                {
+                    // 타겟의 위치가 2초 동안 변경되지 않았다면, 재설정 요청
+                    Debug.LogError("타겟 재설정 요청");
+                    ViewRangeTrigger.resetTarget = true; 
+                    lastTargetPositionUpdateTime = Time.time; 
                 }
 
                 if ((Time.time - lastPathCheckTime >= checkDuration) &&
                     (Vector3.Distance(transform.position, lastPosition) <= minDistanceChange))
                 {
-                    agent.SetDestination(enemyService.GetTarget().transform.position);
+                    agent.SetDestination(target.transform.position);
                     lastPathCheckTime = Time.time;
                 }
 
                 lastPosition = transform.position;
 
-                targetPosi = new Vector3(enemyService.GetTarget().transform.position.x,
-                    this.transform.position.y, enemyService.GetTarget().transform.position.z);
+                targetPosi = new Vector3(target.transform.position.x,
+                    this.transform.position.y, target.transform.position.z);
 
                 transform.LookAt(targetPosi);
 
                 if (!enemyService.GetIsCanEat())
                 {
-                    agent.SetDestination(enemyService.GetTarget().transform.position);
+                    agent.SetDestination(target.transform.position);
                 }
                 else
                 {
-                    enemyService.GetTarget().gameObject.transform.parent.GetComponent<ILifeCycleService>().GetUnitService().SetIsAttacked(true);
+                    target.gameObject.transform.parent.GetComponent<ILifeCycleService>().GetUnitService().SetIsAttacked(true);
                     return TaskStatus.Success;
                 }
                 return TaskStatus.Running;

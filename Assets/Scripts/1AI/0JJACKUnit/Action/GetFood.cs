@@ -25,7 +25,7 @@ namespace AI
 
         public override TaskStatus OnUpdate()
         {
-            if (CanSeeObject.targetObject.Value == null || CanSeeObject.targetObject.Value.tag != Tags.FOOD)
+            if (CanSeeObject.targetObject == null || CanSeeObject.targetObject.Value == null || CanSeeObject.targetObject.Value.tag != Tags.FOOD)
             {
                 return TaskStatus.Failure;
             }
